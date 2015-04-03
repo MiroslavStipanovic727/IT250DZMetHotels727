@@ -1,0 +1,80 @@
+<html t:type="layout" title="MetHotels727 Početna"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+    
+    
+               
+            <div class="row">
+                
+                <div class="col-sm-4 col-md-4 col-lg-3">
+                    <h2>Dobrodošli na našu web prezenataciju</h2>
+                    <p style="font-weight:bold;">
+                        Naš hotel nalazi se na samoj obali Dunava u Beogradu, sa 
+                        direktnim pogledom na Veliko Ratno Ostrvo i Kalemegdansku 
+                        tvrđavu.  Otvoren 1999. godine, arhitektonski predstavlja 
+                        prepoznatljiv izraz ideoloških, estetskih i funkcionalnih planova 
+                        koji su činili osnovu izgradnje na ovim prostorima.</p>
+                    <p style="font-weight:bold;">
+                        U našem asortimanu nudimo jednokrevetne sobe, luksuzne
+                    jednokrevetne sobe, dvokrevetne sobe, bračne jednokrevetne sobe 
+                    i trokrevetne sobe. Pored toga, u sklopu hotela nalazi se 
+                    2 restorana, kao i bazen.</p> 
+                    <p style="font-weight:bold;">Naš hotel trenutno ima 3 zvezdice, ali nastojimo da u 
+                    skorijoj budućnosti pređemo na status 4 zvezdice.
+                    </p>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">  
+                    <img src="${asset:context:images/hotel.jpg}" class="img-circle img-responsive" alt="Hotel"/>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-5">
+                    <h2>Rezervacija sobe:</h2>
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <div>
+                                <input type="email" class="form-control" id="email" placeholder="Unesite email"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gost">Ime gosta:</label>
+                            <div>
+                                <input type="text" class="form-control" id="gost" placeholder="Unesite vaše ime i prezime"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tip-sobe">Izaberite tip sobe:</label>
+                            <div>          
+                                <select class="form-control" id="tip-sobe">
+                                    <option>Jednokrevetna soba</option>
+                                    <option>Luksuzna jednokrevetna soba</option>
+                                    <option>Dvokrevetna soba</option>
+                                    <option>Bračna jednokrevetna soba</option>
+                                    <option>Trokrevetna soba</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prijava">Datum prijave:</label>
+                            <div>          
+                                <input type="date" class="form-control" id="prijava"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="odjava">Datum odjave:</label>
+                            <div>          
+                                <input type="date" class="form-control" id="odjava"/>
+                            </div>
+                        </div>
+                        <div class="form-group">        
+                            <div>
+                                <button type="submit" class="btn btn-warning btn-lg">Rezerviši</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        
+    
+</html>

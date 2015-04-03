@@ -1,0 +1,70 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 27, 2015, 8:18:15 PM
+    Author     : Miroslav Stipaoviæ 727
+*/
+
+t:pagelink{
+            color:red;
+        }
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+        width:70%;
+        margin: auto;
+        }
+        .carousel-caption{
+            color: gold;
+            font-weight: bold;
+        }
+        body{
+            background-color: #404040;
+            color:goldenrod;
+        }
+        .jumbotron{
+            background-color: #404040;
+        }
+        .navbar-inverse .navbar-brand {
+        color: gold;
+        }
+        .navbar-inverse .navbar-brand:hover,
+        .navbar-inverse .navbar-brand:focus {
+        color: red;
+        }
+        .navbar-inverse .navbar-nav > li > a {
+         color: gold;
+        }
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:focus {
+        color: red;
+        }
+        .navbar-inverse .navbar-nav > .active > a, 
+        .navbar-inverse .navbar-nav > .active > a:hover, 
+        .navbar-inverse .navbar-nav > .active > a:focus {
+        color: red;
+        }
+        .navbar-inverse .navbar-nav > li > a {
+         color: gold;
+        }
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:focus {
+        color: red;
+        }
+        .navbar-inverse .navbar-nav > .active > a, 
+        .navbar-inverse .navbar-nav > .active > a:hover, 
+        .navbar-inverse .navbar-nav > .active > a:focus {
+        color: red;
+        }
+        h1, h2{
+            font-family: "Brush Script Std", "Impact", "Arial Black", sans-serif;
+        }
+        #crta{
+            border:1px solid #606060;
+        }
+        #dno{
+            background-color: #202020;
+            color:gold;
+        }

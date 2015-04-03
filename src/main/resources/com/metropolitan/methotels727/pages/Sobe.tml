@@ -1,0 +1,14 @@
+<html t:type="layout" title="Sobe"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+    
+    <div class="row">
+                
+        <div class="col-sm-4 col-md-4 col-lg-3">        
+            <t:beaneditform object="soba" exclude="id" reorder="imesobe, sprat, tv, internet, djakuzi" submitlabel="message:submit-label"/>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-9"> 
+            <t:grid t:source="sobe" exclude="id" include="imesobe, sprat, tv, internet, djakuzi"/>
+        </div>
+    </div>
+</html>

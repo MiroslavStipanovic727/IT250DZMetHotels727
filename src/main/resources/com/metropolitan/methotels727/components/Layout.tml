@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        >
+<head>
+    <meta charset="utf-8" />
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#meni">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                </button>
+                <t:pagelink page="index" class="navbar-brand" href="#">MetHotels 727</t:pagelink>
+            </div>
+            <div class="collapse navbar-collapse" id="meni">
+                <ul class="nav navbar-nav">
+                    <!--<li class="active"><a href="#">Početna</a></li>
+                    <li><a href="#">Sobe</a></li>
+                    <li><a href="#">Novosti</a></li>
+                    <li><a href="#">Specijalne Ponude</a></li>
+                    <li><a href="#">O nama</a></li>
+                    <li><a href="#">Kontaktirajte nas</a></li>-->
+                    <t:loop source="pageNames" value="pageName">
+                        <t:any element="li" class="prop:classForPageName">
+                            <t:pagelink page="prop:pageName">${prepare(pageName)}</t:pagelink>
+                        </t:any>
+                    </t:loop>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="jumbotron">
+            <h1>
+                MetHotels727
+            </h1>
+            <p>
+                Nudimo vam najbolji i najudobniji hotel u regionu i šire,
+                po pristupačnim cenama
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div id="slajdovi" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+                <li data-target="#slajdovi" data-slide-to="0" class="active"></li>
+                <li data-target="#slajdovi" data-slide-to="1"></li>
+                <li data-target="#slajdovi" data-slide-to="2"></li>
+                <li data-target="#slajdovi" data-slide-to="3"></li>
+                <li data-target="#slajdovi" data-slide-to="4"></li>
+            </ol>
+
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="${asset:context:images/single2.jpg}" alt="Jednokrevetna" width="900" height="600"/>
+                    <div class="carousel-caption">
+                        <h3>Osnovna jednokrevetna soba</h3>
+                        <p>Soba sa jednim krevetom. Možete je rezervisati za 10EUR po danu</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="${asset:context:images/single3.jpg}" alt="Jednokrevetna deluks" width="900" height="600"/>
+                    <div class="carousel-caption">
+                        <h3>Deluks jednokrevetna soba</h3>
+                        <p>Luksuzna soba sa jednim krevetom. Možete je rezervisati za 15EUR po danu</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="${asset:context:images/double.jpg}" alt="Dvokrevetna" width="900" height="600"/>
+                    <div class="carousel-caption">
+                        <h3>Dvokrevetna soba</h3>
+                        <p>Soba sa dva kreveta. Možete je rezervisati za 20EUR po danu</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="${asset:context:images/double king3.jpg}" alt="Dvokrevetna bračni" width="900" height="600"/>
+                    <div class="carousel-caption">
+                        <h3>Bračna jednokrevetna soba</h3>
+                        <p>Soba sa jednim bračnim krevetom. Možete je rezervisati za 25EUR po danu</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="${asset:context:images/triple.jpg}" alt="Trokrevetna" width="900" height="600"/>
+                    <div class="carousel-caption">
+                        <h3>Trokrevetna soba</h3>
+                        <p>Soba sa tri kreveta. Možete je rezervisati za 30 EUR po danu</p>
+                    </div>
+                </div>
+            </div>
+
+            <a class="left carousel-control" href="#slajdovi" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Prethodni</span>
+            </a>
+            <a class="right carousel-control" href="#slajdovi" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Sledeći</span>
+            </a>
+        </div>
+
+        <div class="container">
+
+            <t:body />
+
+            <div class="row">
+                <div id="crta" class="col-sm-12 col-md-12 col-lg-12"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4"><h4>Kontakt informacije</h4>
+                    <p>
+                        Autor: Miroslav Stipanović
+                    <br/>Email: miroslav.stipanovic.727@metropolitan.ac.rs
+                    <br/>Telefon: 111-111-111
+                    <br/>Adresa: Ulica 123, Beograd, Srbija
+                    </p>
+                </div>
+                    
+                <div class="col-sm-4 col-md-4 col-lg-3"></div>
+                <div class="col-sm-4 col-md-4 col-lg-5">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-warning">Pitanja i odgovori</a>
+                        <a href="#" class="list-group-item list-group-item-warning">Mapa sajta</a>
+                        <a href="#" class="list-group-item list-group-item-warning">Pomoć/Podrška</a>
+                    </div>
+                </div> 
+            </div>
+
+        </div> <!-- /container -->
+    </div>
+</body>
+</html>
