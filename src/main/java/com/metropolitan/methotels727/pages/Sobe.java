@@ -6,7 +6,9 @@
 package com.metropolitan.methotels727.pages;
 
 import com.metropolitan.methotels727.entities.Soba;
+import com.metropolitan.methotels727.services.SobaDAO;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -21,23 +23,31 @@ public class Sobe {
     
     @Property
     private Soba soba;
+    @Property
+    private Soba onesoba;
     @Inject
-    private Session session;
+    private SobaDAO sobaDAO;
     
     @Property
-    private ArrayList<Soba> sobe;
+    private List<Soba> sobe;
     
     
     void onActivate(){
         if(sobe==null){
             sobe = new ArrayList<Soba>();
         }
-        sobe = (ArrayList<Soba>) session.createCriteria(Soba.class).list();
+        sobe = sobaDAO.getListaSvihSoba();
     }
      
     @CommitAfter
     Object onSuccess(){
-       session.persist(soba);
+       sobaDAO.dodajSobu(soba);
+        return this;
+    }
+    
+    @CommitAfter
+    Object onActionFromDelete(int id){
+        sobaDAO.obrisiSobu(id);
         return this;
     }
     

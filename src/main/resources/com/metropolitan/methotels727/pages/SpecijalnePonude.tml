@@ -2,6 +2,33 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
             
-    <em>Stranica u izradi</em>  
+    <div class="row">
+                
+        <div class="col-sm-4 col-md-4 col-lg-3">        
+            <t:beaneditform object="specPonuda" exclude="spid" 
+                            reorder="spnaziv, sppopust" submitlabel="message:submit-label"
+                            add="sid">
+                <p:sid>
+                    <t:label for="sid"/>:
+                    <t:select t:blankLabel="Odaberi sobe" t:id="sid" 
+                              encoder="encoder" model="sobe" validate="required"/>
+                </p:sid>
+            </t:beaneditform>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-9"> 
+            <t:grid t:source="specPonude" add="delete,soba,brsobe"
+                    row="oneSpecijalnaPonuda" exclude="spid" reorder="spnaziv, sppopust, brsobe, soba, delete">
+                <p:deleteCell>
+                    <t:actionlink t:id="delete" context="oneSpecijalnaPonuda.spid">Delete</t:actionlink>
+                </p:deleteCell>
+                <p:sobaCell>
+                    ${soba}
+                </p:sobaCell>
+                <p:brsobeCell>
+                    ${brsobe}
+                </p:brsobeCell>
+            </t:grid>
+        </div>
+    </div> 
     
 </html>

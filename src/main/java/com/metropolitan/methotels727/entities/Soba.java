@@ -8,17 +8,16 @@ package com.metropolitan.methotels727.entities;
 import com.metropolitan.methotels727.data.ImeSobe;
 import com.metropolitan.methotels727.data.Opcije;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -36,123 +35,108 @@ public class Soba implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "S_ID")
+    private Integer sId;
     @Basic(optional = false)
-    @Column(name = "IME_SOBE")
+    @Column(name = "S_IME_SOBE")
     @Validate("required")
-    @Enumerated(EnumType.STRING)
-    private ImeSobe imeSobe;
-//    private String imeSobe;
-    
+    private ImeSobe sImeSobe;
     @Basic(optional = false)
-    @Column(name = "SPRAT")
-    @Validate("required, min=0, max=10")
-    private int sprat;
+    @Column(name = "S_SPRAT")
+    @Validate("required,min=0,max=10")
+    private int sSprat;
     @Basic(optional = false)
-    @Column(name = "TV")
+    @Column(name = "S_TV")
     @Validate("required")
-    @Enumerated(EnumType.STRING)
-    private Opcije tv;
-//    private String tv;
+    private Opcije sTv;
+    @Basic(optional = false)
+    @Column(name = "S_INTERNET")
+    @Validate("required")
+    private Opcije sInternet;
+    @Basic(optional = false)
+    @Column(name = "S_DJAKUZI")
+    @Validate("required")
+    private Opcije sDjakuzi;
+    @OneToMany(mappedBy = "sId")
+    private List<SpecijalnaPonuda> specijalnaPonudaList;
 
-    @Basic(optional = false)
-    @Column(name = "INTERNET")
-    @Validate("required")
-    @Enumerated(EnumType.STRING)
-    private Opcije internet;
-//    private String internet;
-    @Basic(optional = false)
-    @Column(name = "DJAKUZI")
-    @Validate("required")  
-    @Enumerated(EnumType.STRING)
-    private Opcije djakuzi;
-//    private String djakuzi;
     @Inject
     public Soba() {
     }
 
-    public Soba(Integer id) {
-        this.id = id;
+    public Soba(Integer sId) {
+        this.sId = sId;
     }
 
-    public Soba(Integer id, ImeSobe imeSobe, int sprat, Opcije tv, Opcije internet, Opcije djakuzi) {
-        this.id = id;
-        this.imeSobe = imeSobe;
-        this.sprat = sprat;
-        this.tv = tv;
-        this.internet = internet;
-        this.djakuzi = djakuzi;
-    }
-//    public Soba(Integer id, String imeSobe, int sprat, String, String internet, String djakuzi) {
-//        this.id = id;
-//        this.imeSobe = imeSobe;
-//        this.sprat = sprat;
-//        this.tv = tv;
-//        this.internet = internet;
-//        this.djakuzi = djakuzi;
-//    }
-
-    public Integer getId() {
-        return id;
+    public Soba(Integer sId, ImeSobe sImeSobe, int sSprat, Opcije sTv, Opcije sInternet, Opcije sDjakuzi) {
+        this.sId = sId;
+        this.sImeSobe = sImeSobe;
+        this.sSprat = sSprat;
+        this.sTv = sTv;
+        this.sInternet = sInternet;
+        this.sDjakuzi = sDjakuzi;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getSId() {
+        return sId;
     }
 
-    public ImeSobe getImeSobe() {
-//    public String getImeSobe() {
-        return imeSobe;
+    public void setSId(Integer sId) {
+        this.sId = sId;
     }
 
-    public void setImeSobe(ImeSobe imeSobe) {
-//      public void setImeSobe(String imeSobe) {
-        this.imeSobe = imeSobe;
+    public ImeSobe getSImeSobe() {
+        return sImeSobe;
     }
 
-    public int getSprat() {
-        return sprat;
+    public void setSImeSobe(ImeSobe sImeSobe) {
+        this.sImeSobe = sImeSobe;
     }
 
-    public void setSprat(int sprat) {
-        this.sprat = sprat;
+    public int getSSprat() {
+        return sSprat;
     }
 
-    public Opcije getTv() {
-//    public String getTv(){
-        return tv;
+    public void setSSprat(int sSprat) {
+        this.sSprat = sSprat;
     }
 
-    public void setTv(Opcije tv) {
-//    public void setTv(String tv) {
-        this.tv = tv;
+    public Opcije getSTv() {
+        return sTv;
     }
 
-    public Opcije getInternet() {
-//    public String getInternet() {
-        return internet;
+    public void setSTv(Opcije sTv) {
+        this.sTv = sTv;
     }
 
-    public void setInternet(Opcije internet) {
-//    public void setInternet(String internet) {
-        this.internet = internet;
+    public Opcije getSInternet() {
+        return sInternet;
     }
 
-    public Opcije getDjakuzi() {
-//    public String getDjakuzi() {
-        return djakuzi;
+    public void setSInternet(Opcije sInternet) {
+        this.sInternet = sInternet;
     }
 
-    public void setDjakuzi(Opcije djakuzi) {
-//    public void setDjakuzi(String djakuzi){
-        this.djakuzi = djakuzi;
+    public Opcije getSDjakuzi() {
+        return sDjakuzi;
+    }
+
+    public void setSDjakuzi(Opcije sDjakuzi) {
+        this.sDjakuzi = sDjakuzi;
+    }
+
+    public List<SpecijalnaPonuda> getSpecijalnaPonudaList() {
+        return specijalnaPonudaList;
+    }
+
+    public void setSpecijalnaPonudaList(List<SpecijalnaPonuda> specijalnaPonudaList) {
+        this.specijalnaPonudaList = specijalnaPonudaList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (sId != null ? sId.hashCode() : 0);
         return hash;
     }
 
@@ -163,7 +147,7 @@ public class Soba implements Serializable {
             return false;
         }
         Soba other = (Soba) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.sId == null && other.sId != null) || (this.sId != null && !this.sId.equals(other.sId))) {
             return false;
         }
         return true;
@@ -171,7 +155,7 @@ public class Soba implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metropolitan.methotels727.entities.Soba[ id=" + id + " ]";
+        return "Soba br = " + sId + " tip sobe: " +getSImeSobe();
     }
     
 }

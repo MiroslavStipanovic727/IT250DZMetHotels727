@@ -25,7 +25,10 @@ public class AppModule
 {
     public static void bind(ServiceBinder binder)
     {
-        // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
+        binder.bind(SobaDAO.class, SobaDAOImpl.class);
+        binder.bind(SpecijalnePonudeDAO.class, SpecijalnePonudeDAOImpl.class);
+
+// binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation
