@@ -27,6 +27,8 @@ public class AppModule
     {
         binder.bind(SobaDAO.class, SobaDAOImpl.class);
         binder.bind(SpecijalnePonudeDAO.class, SpecijalnePonudeDAOImpl.class);
+        binder.bind(KorisnikDAO.class, KorisnikDAOImpl.class);
+        binder.bind(RezervacijaDAO.class, RezervacijaDAOImpl.class);
 
 // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
@@ -144,6 +146,11 @@ public class AppModule
         // within the pipeline.
 
         configuration.add("Timing", filter);
+    }
+    
+    public void contributeComponentRequestHandler(OrderedConfiguration<ComponentRequestFilter>
+    configuration) {
+    configuration.addInstance("PageProtectionFilter", PageProtectionFilter.class);
     }
     
 //    public void contributeRequestHandler(OrderedConfiguration<RequestFilter> configuration,

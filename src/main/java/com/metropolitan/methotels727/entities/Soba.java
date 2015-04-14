@@ -10,8 +10,11 @@ import com.metropolitan.methotels727.data.Opcije;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,6 +43,7 @@ public class Soba implements Serializable {
     @Basic(optional = false)
     @Column(name = "S_IME_SOBE")
     @Validate("required")
+    @Enumerated(EnumType.STRING)
     private ImeSobe sImeSobe;
     @Basic(optional = false)
     @Column(name = "S_SPRAT")
@@ -48,18 +52,24 @@ public class Soba implements Serializable {
     @Basic(optional = false)
     @Column(name = "S_TV")
     @Validate("required")
+    @Enumerated(EnumType.STRING)
     private Opcije sTv;
     @Basic(optional = false)
     @Column(name = "S_INTERNET")
     @Validate("required")
+    @Enumerated(EnumType.STRING)
     private Opcije sInternet;
     @Basic(optional = false)
     @Column(name = "S_DJAKUZI")
     @Validate("required")
+    @Enumerated(EnumType.STRING)
     private Opcije sDjakuzi;
     @OneToMany(mappedBy = "sId")
     private List<SpecijalnaPonuda> specijalnaPonudaList;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sId")
+    private List<Rezervacija> rezervacijaList;
+    
     @Inject
     public Soba() {
     }
@@ -132,6 +142,14 @@ public class Soba implements Serializable {
     public void setSpecijalnaPonudaList(List<SpecijalnaPonuda> specijalnaPonudaList) {
         this.specijalnaPonudaList = specijalnaPonudaList;
     }
+    
+    public List<Rezervacija> getRezervacijaList() {
+        return rezervacijaList;
+    }
+
+    public void setRezervacijaList(List<Rezervacija> rezervacijaList) {
+        this.rezervacijaList = rezervacijaList;
+    }
 
     @Override
     public int hashCode() {
@@ -157,5 +175,5 @@ public class Soba implements Serializable {
     public String toString() {
         return "Soba br = " + sId + " tip sobe: " +getSImeSobe();
     }
-    
+
 }

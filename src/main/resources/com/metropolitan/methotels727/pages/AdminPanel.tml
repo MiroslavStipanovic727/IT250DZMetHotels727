@@ -1,0 +1,73 @@
+<html t:type="layout" title="Admin Panel"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+            
+    <div class="row">
+                
+        <div class="col-sm-4 col-md-4 col-lg-3">        
+            <t:beaneditform t:id="unossoba" object="soba" exclude="sid" reorder="simesobe, ssprat,
+                            stv, sinternet, sdjakuzi"
+                            submitlabel="message:submit-label-soba"/>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-9"> 
+            <t:grid t:source="sobe" exclude="sid" 
+                    add="deletesoba" row="onesoba"
+                    include="simesobe, ssprat, stv, sinternet, sdjakuzi">
+                <p:deletesobaCell>
+                    <t:actionlink t:id="deletesoba" context="onesoba.sId">Delete</t:actionlink>
+                </p:deletesobaCell>
+            </t:grid>
+        </div>
+    </div> 
+    <div class="row">
+                
+        <div class="col-sm-4 col-md-4 col-lg-3">        
+            <t:beaneditform t:id="unoskorisnika" object="korisnik" reorder="kemail,ksifra,kime,kprezime,kuloga"
+                            submitlabel="message:submit-label-korisnik">
+                <t:errors/>            
+            </t:beaneditform>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-9"> 
+            <t:grid t:source="korisnici" add="deletekorisnik" row="onekorisnik"
+                    include="kemail,ksifra,kime,kprezime,kuloga">
+                <p:deletekorisnikCell>
+                    <t:actionlink t:id="deletekorisnik" context="onekorisnik.kEmail">Delete</t:actionlink>
+                </p:deletekorisnikCell>
+            </t:grid>
+        </div>
+    </div> 
+    <div class="row">
+                
+        <div class="col-sm-4 col-md-4 col-lg-3">        
+            <t:beaneditform t:id="unosrezervacija" object="rezervacija" exclude="rid" 
+                            reorder="rdatumprijave,rdatumodjave,rcena"
+                            submitlabel="message:submit-label-rezervacija" add="sid, kemail">
+                <p:sid>
+                    <t:label for="sid"/>:
+                    <t:select t:blankLabel="Odaberi sobu" t:id="sid" 
+                              encoder="encoder" model="sobe2" validate="required"/>
+                </p:sid>
+                <p:kemail>
+                    <t:label for="kemail"/>:
+                    <t:select t:blankLabel="Odaberi korisnika" t:id="kemail" 
+                              encoder="encoder2" model="korisnici2" validate="required"/>
+                </p:kemail>
+            </t:beaneditform>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-9"> 
+            <t:grid t:source="rezervacije" exclude="rid" 
+                    add="deleterezervacija,soba,korisnik" row="onerezervacija"
+                    reorder="rdatumprijave,rdatumodjave,rcena,soba,korisnik">
+                <p:deleterezervacijaCell>
+                    <t:actionlink t:id="deleterezervacija" context="onerezervacija.rId">Delete</t:actionlink>
+                </p:deleterezervacijaCell>
+                <p:sobaCell>
+                    ${sobaa}
+                </p:sobaCell>
+                <p:korisnikCell>
+                    ${korisnikk}
+                </p:korisnikCell>
+            </t:grid>
+        </div>
+    </div>    
+</html>

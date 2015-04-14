@@ -41,8 +41,8 @@ public class SpecijalnaPonuda implements Serializable {
     private String spNaziv;
     @Basic(optional = false)
     @Column(name = "SP_POPUST")
-    @Validate("required")
-    private long spPopust;
+    @Validate("required,min=0,max=99")
+    private double spPopust;
     @JoinColumn(name = "S_ID", referencedColumnName = "S_ID")
     @ManyToOne
     private Soba sId;
@@ -55,7 +55,7 @@ public class SpecijalnaPonuda implements Serializable {
         this.spId = spId;
     }
 
-    public SpecijalnaPonuda(Integer spId, String spNaziv, long spPopust) {
+    public SpecijalnaPonuda(Integer spId, String spNaziv, double spPopust) {
         this.spId = spId;
         this.spNaziv = spNaziv;
         this.spPopust = spPopust;
@@ -77,11 +77,11 @@ public class SpecijalnaPonuda implements Serializable {
         this.spNaziv = spNaziv;
     }
 
-    public long getSpPopust() {
+    public double getSpPopust() {
         return spPopust;
     }
 
-    public void setSpPopust(long spPopust) {
+    public void setSpPopust(double spPopust) {
         this.spPopust = spPopust;
     }
 

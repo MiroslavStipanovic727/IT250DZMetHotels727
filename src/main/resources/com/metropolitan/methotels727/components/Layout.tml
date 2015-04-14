@@ -29,18 +29,27 @@
             </div>
             <div class="collapse navbar-collapse" id="meni">
                 <ul class="nav navbar-nav">
-                    <!--<li class="active"><a href="#">Početna</a></li>
-                    <li><a href="#">Sobe</a></li>
-                    <li><a href="#">Novosti</a></li>
-                    <li><a href="#">Specijalne Ponude</a></li>
-                    <li><a href="#">O nama</a></li>
-                    <li><a href="#">Kontaktirajte nas</a></li>-->
                     <t:loop source="pageNames" value="pageName">
                         <t:any element="li" class="prop:classForPageName">
                             <t:pagelink page="prop:pageName">${prepare(pageName)}</t:pagelink>
                         </t:any>
                     </t:loop>
+                    <t:if test="!ulogovan">
+                    <li>
+                        <t:pagelink page="Login" class="navbar-right">Prijava</t:pagelink>
+                    </li>
+                    <li>
+                        <t:pagelink page="Registracija" class="navbar-right">Registracija</t:pagelink>
+                    </li>
+                    </t:if>
+                    <t:if test="ulogovan">
+                        <li>
+                            <t:pagelink page="Index" class="navbar-right">${ulogovaniEmail}</t:pagelink>
+                        </li>
+                        <t:actionlink t:id="logout" class="btn btn-default navbar-btn navbar-right">Odjava</t:actionlink>
+                    </t:if>
                 </ul>
+                
             </div>
         </div>
     </nav>
