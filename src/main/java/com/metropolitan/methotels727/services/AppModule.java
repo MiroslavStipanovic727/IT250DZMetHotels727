@@ -1,5 +1,6 @@
 package com.metropolitan.methotels727.services;
 
+import com.metropolitan.methotels727.dao.*;
 import java.io.IOException;
 
 import org.apache.tapestry5.*;
@@ -29,6 +30,7 @@ public class AppModule
         binder.bind(SpecijalnePonudeDAO.class, SpecijalnePonudeDAOImpl.class);
         binder.bind(KorisnikDAO.class, KorisnikDAOImpl.class);
         binder.bind(RezervacijaDAO.class, RezervacijaDAOImpl.class);
+        binder.bind(GenerickiDAO.class, GenerickiDAOImpl.class);
 
 // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 

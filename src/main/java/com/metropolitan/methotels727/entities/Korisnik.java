@@ -14,10 +14,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -30,88 +34,107 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 @Table(name = "korisnik")
 @NamedQueries({
     @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k")})
-public class Korisnik implements Serializable {
+public class Korisnik extends AbstraktniEntitet{
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
-    @Column(name = "K_EMAIL")
+    @Column(name = "EMAIL")
     @Validate("required")
-    private String kEmail;
+    private String email;
     @Basic(optional = false)
-    @Column(name = "K_SIFRA")
+    @Column(name = "SIFRA")
     @Validate("required")
-    private String kSifra;
+    private String sifra;
     @Basic(optional = false)
-    @Column(name = "K_ULOGA")
+    @Column(name = "ULOGA")
     @Validate("required")
     @Enumerated(EnumType.STRING)
-    private Uloga kUloga;
+    private Uloga uloga;
     @Basic(optional = false)
-    @Column(name = "K_IME")
+    @Column(name = "IME")
     @Validate("required")
-    private String kIme;
+    private String ime;
     @Basic(optional = false)
-    @Column(name = "K_PREZIME")
+    @Column(name = "PREZIME")
     @Validate("required")
-    private String kPrezime;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kEmail")
+    private String prezime;
+//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
+//    @OneToOne(optional = false)
+//    private AbstraktniEntitet abstraktniEntitet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "korId")
     private List<Rezervacija> rezervacijaList;
 
     @Inject
     public Korisnik() {
     }
 
-    public Korisnik(String kEmail) {
-        this.kEmail = kEmail;
+    public Korisnik(Integer id) {
+        this.id = id;
     }
 
-    public Korisnik(String kEmail, String kSifra, Uloga kUloga, String kIme, String kPrezime) {
-        this.kEmail = kEmail;
-        this.kSifra = kSifra;
-        this.kUloga = kUloga;
-        this.kIme = kIme;
-        this.kPrezime = kPrezime;
+    public Korisnik(Integer id, String email, String sifra, Uloga uloga, String ime, String prezime) {
+        this.id = id;
+        this.email = email;
+        this.sifra = sifra;
+        this.uloga = uloga;
+        this.ime = ime;
+        this.prezime = prezime;
     }
 
-    public String getKEmail() {
-        return kEmail;
+    public Integer getId() {
+        return id;
     }
 
-    public void setKEmail(String kEmail) {
-        this.kEmail = kEmail;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getKSifra() {
-        return kSifra;
+    public String getEmail() {
+        return email;
     }
 
-    public void setKSifra(String kSifra) {
-        this.kSifra = kSifra;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Uloga getKUloga() {
-        return kUloga;
+    public String getSifra() {
+        return sifra;
     }
 
-    public void setKUloga(Uloga kUloga) {
-        this.kUloga = kUloga;
+    public void setSifra(String sifra) {
+        this.sifra = sifra;
     }
 
-    public String getKIme() {
-        return kIme;
+    public Uloga getUloga() {
+        return uloga;
     }
 
-    public void setKIme(String kIme) {
-        this.kIme = kIme;
+    public void setUloga(Uloga uloga) {
+        this.uloga = uloga;
     }
 
-    public String getKPrezime() {
-        return kPrezime;
+    public String getIme() {
+        return ime;
     }
 
-    public void setKPrezime(String kPrezime) {
-        this.kPrezime = kPrezime;
+    public void setIme(String ime) {
+        this.ime = ime;
     }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
+    }
+
+//    public AbstraktniEntitet getAbstraktniEntitet() {
+//        return abstraktniEntitet;
+//    }
+//
+//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
+//        this.abstraktniEntitet = abstraktniEntitet;
+//    }
 
     public List<Rezervacija> getRezervacijaList() {
         return rezervacijaList;
@@ -124,7 +147,7 @@ public class Korisnik implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (kEmail != null ? kEmail.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -135,7 +158,7 @@ public class Korisnik implements Serializable {
             return false;
         }
         Korisnik other = (Korisnik) object;
-        if ((this.kEmail == null && other.kEmail != null) || (this.kEmail != null && !this.kEmail.equals(other.kEmail))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -143,7 +166,7 @@ public class Korisnik implements Serializable {
 
     @Override
     public String toString() {
-        return "Korisnik: " + kEmail;
+        return "Korisnik: "+email;
     }
     
 }

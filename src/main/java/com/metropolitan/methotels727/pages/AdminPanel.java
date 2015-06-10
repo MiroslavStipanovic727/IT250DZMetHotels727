@@ -5,14 +5,18 @@
  */
 package com.metropolitan.methotels727.pages;
 
+import com.metropolitan.methotels727.data.ImeSobe;
 import com.metropolitan.methotels727.entities.Korisnik;
 import com.metropolitan.methotels727.entities.Rezervacija;
 import com.metropolitan.methotels727.entities.Soba;
-import com.metropolitan.methotels727.services.KorisnikDAO;
+import com.metropolitan.methotels727.entities.SpecijalnaPonuda;
+import com.metropolitan.methotels727.dao.KorisnikDAO;
 import com.metropolitan.methotels727.services.ProtectedPage;
-import com.metropolitan.methotels727.services.RezervacijaDAO;
-import com.metropolitan.methotels727.services.SobaDAO;
+import com.metropolitan.methotels727.dao.RezervacijaDAO;
+import com.metropolitan.methotels727.dao.SobaDAO;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import org.apache.tapestry5.ValueEncoder;
@@ -70,7 +74,7 @@ public class AdminPanel {
 
             @Override
             public String toClient(Soba v) {
-                return String.valueOf(v.getSId());
+                return String.valueOf(v.getId());
             }
 
             @Override
@@ -94,7 +98,7 @@ public class AdminPanel {
 
             @Override
             public String toClient(Korisnik v) {
-                return v.getKEmail();
+                return v.getEmail();
             }
 
             @Override
@@ -135,7 +139,7 @@ public class AdminPanel {
     
     @CommitAfter
     Object onSuccessFromUnosSoba(){
-       sobaDAO.dodajSobu(soba);
+       sobaDAO.dodajIliIzmeniSobu(soba);
         return this;
     }
     
@@ -161,9 +165,9 @@ public class AdminPanel {
     
     @CommitAfter
     Object onSuccessFromUnosKorisnika(){
-        if (!korisnikDAO.proveraDaLiPostojiEmail(korisnik.getKEmail())) {
-            String unhashPassword = korisnik.getKSifra();
-            korisnik.setKSifra(getMD5Hash(unhashPassword));
+        if (!korisnikDAO.proveraDaLiPostojiEmail(korisnik.getEmail())) {
+            String unhashPassword = korisnik.getSifra();
+            korisnik.setSifra(getMD5Hash(unhashPassword));
             korisnikDAO.dodajKorisnika(korisnik);
             return this;
         } else {
@@ -180,15 +184,15 @@ public class AdminPanel {
     
     @CommitAfter
     Object onSuccessFromUnosRezervacija(){
-        rezervacija.setSId(sid);
-        rezervacija.setKEmail(kemail);
+        rezervacija.setSobId(sid);/*setSId(sid);*/
+        rezervacija.setKorId(kemail);/*.setKEmail(kemail);*/
         rezervacijaDAO.dodajRezervaciju(rezervacija);
         return this;
     }
     
     public String getSobaa(){
-        if(onerezervacija.getSId()!=null){
-            return onerezervacija.getSId().toString();
+        if(onerezervacija.getSobId()!=null){
+            return onerezervacija.getSobId().toString();
         }
         else {
             return "";
@@ -197,8 +201,8 @@ public class AdminPanel {
     }
     
     public String getKorisnikk(){
-        if(onerezervacija.getKEmail()!=null){
-            return onerezervacija.getKEmail().getKEmail();
+        if(onerezervacija.getKorId()!=null){
+            return onerezervacija.getKorId().getEmail();
         }
         else {
             return "";
@@ -210,6 +214,59 @@ public class AdminPanel {
         rezervacijaDAO.obrisiRezervaciju(id);
         return this;
     }
+    
+    public Date getDatump(){
+        if(onerezervacija.getDatumPrijave()!=null){
+            return onerezervacija.getDatumPrijave();
+        }
+        else {
+            return null;
+        }
+    }
+    
+    public Date getDatumo(){
+        if(onerezervacija.getDatumOdjave()!=null){
+            return onerezervacija.getDatumOdjave();
+        }
+        else {
+            return null;
+        }
+    }
+    
+    public double getPopust(){
+        double popust=0.0;
+        if(onerezervacija.getSobId()!=null&&onerezervacija.getSobId().getSpecijalnaPonudaList()!=null){
+            for(SpecijalnaPonuda sp:onerezervacija.getSobId().getSpecijalnaPonudaList()){
+                popust+= sp.getPopust();
+            }
+        }
+        if(popust>=50.0)
+            return 50.0;
+        return popust;
+    }
+    
+    public double getCpd(){
+        if(onerezervacija.getSobId()!=null){
+            if(onerezervacija.getSobId().getImeSobe().equals(ImeSobe.Jednokrevetna)){
+                return 10.0;
+            } else if(onerezervacija.getSobId().getImeSobe().equals(ImeSobe.Luksuzna)){
+                return 15.0;
+            } else if(onerezervacija.getSobId().getImeSobe().equals(ImeSobe.Dvokrevetna)){
+                return 20.0;
+            } else if(onerezervacija.getSobId().getImeSobe().equals(ImeSobe.Bracna)){
+                return 25.0;
+            } else if(onerezervacija.getSobId().getImeSobe().equals(ImeSobe.Trokrevetna)){
+                return 30.0; 
+            }
+            else{
+                return 0.0;
+            }
+        }
+        else {
+            return 0.0;
+        }
+    }
+    
     
 }
 

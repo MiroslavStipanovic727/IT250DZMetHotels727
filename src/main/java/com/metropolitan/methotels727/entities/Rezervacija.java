@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,103 +32,96 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 @Table(name = "rezervacija")
 @NamedQueries({
     @NamedQuery(name = "Rezervacija.findAll", query = "SELECT r FROM Rezervacija r")})
-public class Rezervacija implements Serializable {
+public class Rezervacija extends AbstraktniEntitet {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "R_ID")
-    private Integer rId;
-    @Basic(optional = false)
-    @Column(name = "R_DATUM_PRIJAVE")
+    @Column(name = "DATUM_PRIJAVE")
     @Temporal(TemporalType.DATE)
     @Validate("required")
-    private Date rDatumPrijave;
+    private Date datumPrijave;
     @Basic(optional = false)
-    @Column(name = "R_DATUM_ODJAVE")
+    @Column(name = "DATUM_ODJAVE")
     @Temporal(TemporalType.DATE)
-    @Validate("required")    
-    private Date rDatumOdjave;
-    @Basic(optional = false)
-    @Column(name = "R_CENA")
     @Validate("required")
-    private double rCena;
-    @JoinColumn(name = "S_ID", referencedColumnName = "S_ID")
+    private Date datumOdjave;
+    @JoinColumn(name = "SOB_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     @Validate("required")
-    private Soba sId;
-    @JoinColumn(name = "K_EMAIL", referencedColumnName = "K_EMAIL")
+    private Soba sobId;
+    @JoinColumn(name = "KOR_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     @Validate("required")
-    private Korisnik kEmail;
+    private Korisnik korId;
+//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
+//    @OneToOne(optional = false)
+//    private AbstraktniEntitet abstraktniEntitet;
 
     @Inject
     public Rezervacija() {
     }
 
-    public Rezervacija(Integer rId) {
-        this.rId = rId;
+    public Rezervacija(Integer id) {
+        this.id = id;
     }
 
-    public Rezervacija(Integer rId, Date rDatumPrijave, Date rDatumOdjave, double rCena) {
-        this.rId = rId;
-        this.rDatumPrijave = rDatumPrijave;
-        this.rDatumOdjave = rDatumOdjave;
-        this.rCena = rCena;
+    public Rezervacija(Integer id, Date datumPrijave, Date datumOdjave) {
+        this.id = id;
+        this.datumPrijave = datumPrijave;
+        this.datumOdjave = datumOdjave;
     }
 
-    public Integer getRId() {
-        return rId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRId(Integer rId) {
-        this.rId = rId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Date getRDatumPrijave() {
-        return rDatumPrijave;
+    public Date getDatumPrijave() {
+        return datumPrijave;
     }
 
-    public void setRDatumPrijave(Date rDatumPrijave) {
-        this.rDatumPrijave = rDatumPrijave;
+    public void setDatumPrijave(Date datumPrijave) {
+        this.datumPrijave = datumPrijave;
     }
 
-    public Date getRDatumOdjave() {
-        return rDatumOdjave;
+    public Date getDatumOdjave() {
+        return datumOdjave;
     }
 
-    public void setRDatumOdjave(Date rDatumOdjave) {
-        this.rDatumOdjave = rDatumOdjave;
+    public void setDatumOdjave(Date datumOdjave) {
+        this.datumOdjave = datumOdjave;
     }
 
-    public double getRCena() {
-        return rCena;
+    public Soba getSobId() {
+        return sobId;
     }
 
-    public void setRCena(double rCena) {
-        this.rCena = rCena;
+    public void setSobId(Soba sobId) {
+        this.sobId = sobId;
     }
 
-    public Soba getSId() {
-        return sId;
+    public Korisnik getKorId() {
+        return korId;
     }
 
-    public void setSId(Soba sId) {
-        this.sId = sId;
+    public void setKorId(Korisnik korId) {
+        this.korId = korId;
     }
 
-    public Korisnik getKEmail() {
-        return kEmail;
-    }
-
-    public void setKEmail(Korisnik kEmail) {
-        this.kEmail = kEmail;
-    }
+//    public AbstraktniEntitet getAbstraktniEntitet() {
+//        return abstraktniEntitet;
+//    }
+//
+//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
+//        this.abstraktniEntitet = abstraktniEntitet;
+//    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (rId != null ? rId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -138,7 +132,7 @@ public class Rezervacija implements Serializable {
             return false;
         }
         Rezervacija other = (Rezervacija) object;
-        if ((this.rId == null && other.rId != null) || (this.rId != null && !this.rId.equals(other.rId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -146,7 +140,7 @@ public class Rezervacija implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metropolitan.methotels727.entities.Rezervacija[ rId=" + rId + " ]";
+        return "com.metropolitan.methotels727.entities.Rezervacija[ id=" + id + " ]";
     }
     
 }

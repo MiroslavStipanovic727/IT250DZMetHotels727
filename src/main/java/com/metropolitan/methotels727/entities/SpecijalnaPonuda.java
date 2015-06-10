@@ -6,6 +6,7 @@
 package com.metropolitan.methotels727.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -28,75 +30,82 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 @Table(name = "specijalna_ponuda")
 @NamedQueries({
     @NamedQuery(name = "SpecijalnaPonuda.findAll", query = "SELECT s FROM SpecijalnaPonuda s")})
-public class SpecijalnaPonuda implements Serializable {
+public class SpecijalnaPonuda extends AbstraktniEntitet {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "SP_ID")
-    private Integer spId;
-    @Basic(optional = false)
-    @Column(name = "SP_NAZIV")
+    @Column(name = "NAZIV")
     @Validate("required")
-    private String spNaziv;
+    private String naziv;
     @Basic(optional = false)
-    @Column(name = "SP_POPUST")
+    @Column(name = "POPUST")
     @Validate("required,min=0,max=99")
-    private double spPopust;
-    @JoinColumn(name = "S_ID", referencedColumnName = "S_ID")
-    @ManyToOne
-    private Soba sId;
+    private double popust;
+    @JoinColumn(name = "SOB_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    @Validate("required")
+    private Soba sobId;
+//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
+//    @OneToOne(optional = false)
+//    private AbstraktniEntitet abstraktniEntitet;
 
     @Inject
     public SpecijalnaPonuda() {
     }
 
-    public SpecijalnaPonuda(Integer spId) {
-        this.spId = spId;
+    public SpecijalnaPonuda(Integer id) {
+        this.id = id;
     }
 
-    public SpecijalnaPonuda(Integer spId, String spNaziv, double spPopust) {
-        this.spId = spId;
-        this.spNaziv = spNaziv;
-        this.spPopust = spPopust;
+    public SpecijalnaPonuda(Integer id, String naziv, double popust) {
+        this.id = id;
+        this.naziv = naziv;
+        this.popust = popust;
     }
 
-    public Integer getSpId() {
-        return spId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSpId(Integer spId) {
-        this.spId = spId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getSpNaziv() {
-        return spNaziv;
+    public String getNaziv() {
+        return naziv;
     }
 
-    public void setSpNaziv(String spNaziv) {
-        this.spNaziv = spNaziv;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
-    public double getSpPopust() {
-        return spPopust;
+    public double getPopust() {
+        return popust;
     }
 
-    public void setSpPopust(double spPopust) {
-        this.spPopust = spPopust;
+    public void setPopust(double popust) {
+        this.popust = popust;
     }
 
-    public Soba getSId() {
-        return sId;
+    public Soba getSobId() {
+        return sobId;
     }
 
-    public void setSId(Soba sId) {
-        this.sId = sId;
+    public void setSobId(Soba sobId) {
+        this.sobId = sobId;
     }
+
+//    public AbstraktniEntitet getAbstraktniEntitet() {
+//        return abstraktniEntitet;
+//    }
+//
+//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
+//        this.abstraktniEntitet = abstraktniEntitet;
+//    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (spId != null ? spId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +116,7 @@ public class SpecijalnaPonuda implements Serializable {
             return false;
         }
         SpecijalnaPonuda other = (SpecijalnaPonuda) object;
-        if ((this.spId == null && other.spId != null) || (this.spId != null && !this.spId.equals(other.spId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -115,7 +124,7 @@ public class SpecijalnaPonuda implements Serializable {
 
     @Override
     public String toString() {
-        return "com.metropolitan.methotels727.entities.SpecijalnaPonuda[ spId=" + spId + " ]";
+        return "com.metropolitan.methotels727.entities.SpecijalnaPonuda[ id=" + id + " ]";
     }
     
 }

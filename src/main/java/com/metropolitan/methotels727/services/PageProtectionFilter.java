@@ -131,8 +131,8 @@ public class PageProtectionFilter implements ComponentRequestFilter {
     private boolean isAuthenticated() throws IOException {
         Korisnik korisnik = sessionStateManager.getIfExists(Korisnik.class);
         if (korisnik != null) {
-            if (korisnik.getKUloga()== Uloga.Admin || korisnik.getKUloga()== Uloga.Korisnik || 
-                    korisnik.getKUloga()== Uloga.Zaposleni) 
+            if (korisnik.getUloga()== Uloga.Admin || korisnik.getUloga()== Uloga.Korisnik || 
+                    korisnik.getUloga()== Uloga.Zaposleni) 
             {
                 return true;
             }
@@ -148,7 +148,7 @@ public class PageProtectionFilter implements ComponentRequestFilter {
 // Here we could check whether the user's role, or perhaps roles, include one of the rolesAllowed.
 // Typically we'd cache the user's roles in the Visit.
         Korisnik korisnik = sessionStateManager.getIfExists(Korisnik.class);
-        Uloga uloga = korisnik.getKUloga();
+        Uloga uloga = korisnik.getUloga();
         for (String i : rolesAllowed.value()) {
             if (i.equalsIgnoreCase(uloga.toString())) {
                 authorised = true;

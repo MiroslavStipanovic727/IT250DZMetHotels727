@@ -1,0 +1,14 @@
+<html t:type="layout" title="Genericki editor"
+xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+    <t:beaneditform object="bean" t:model="formModel" >
+    </t:beaneditform>
+    <t:grid source="grid" t:model="gridModel" add="edit,delete" row="red">
+        <p:editCell>
+            <t:actionlink t:id="edit" context="red">Izmeni</t:actionlink>
+        </p:editCell>
+        <p:deleteCell>
+            <t:actionlink t:id="delete" context="red">Delete</t:actionlink>
+        </p:deleteCell>
+    </t:grid>
+</html>

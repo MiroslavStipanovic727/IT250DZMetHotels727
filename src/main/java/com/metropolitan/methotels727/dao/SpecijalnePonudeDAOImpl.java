@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.metropolitan.methotels727.services;
+package com.metropolitan.methotels727.dao;
 
 import com.metropolitan.methotels727.entities.SpecijalnaPonuda;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SpecijalnePonudeDAOImpl implements SpecijalnePonudeDAO{
 
     @Override
     public SpecijalnaPonuda getSpecijalnaPonudaById(Integer id) {
-        return (SpecijalnaPonuda) session.createCriteria(SpecijalnaPonuda.class).add(Restrictions.eq("spId", id)).uniqueResult();
+        return (SpecijalnaPonuda) session.createCriteria(SpecijalnaPonuda.class).add(Restrictions.eq("id", id)).uniqueResult();
     }
 
     @Override

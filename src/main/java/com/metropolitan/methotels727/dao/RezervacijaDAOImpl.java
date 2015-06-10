@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.metropolitan.methotels727.services;
+package com.metropolitan.methotels727.dao;
 
 import com.metropolitan.methotels727.entities.Rezervacija;
 import java.util.List;
@@ -28,7 +28,7 @@ public class RezervacijaDAOImpl implements RezervacijaDAO {
     @Override
     public Rezervacija getRezervacijaById(Integer id) {
         return (Rezervacija) session.createCriteria(Rezervacija.class).add(
-                Restrictions.eq("rId", id)).uniqueResult();
+                Restrictions.eq("id", id)).uniqueResult();
     }
 
     @Override

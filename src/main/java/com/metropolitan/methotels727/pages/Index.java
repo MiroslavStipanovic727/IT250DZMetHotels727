@@ -17,7 +17,7 @@ import java.util.Date;
 
 /**
  * Start page of application MetHotels727.
- * @author Miroslav Stipanoviæ 727
+ * @author Miroslav StipanoviÄ‡ 727
  */
 public class Index
 {

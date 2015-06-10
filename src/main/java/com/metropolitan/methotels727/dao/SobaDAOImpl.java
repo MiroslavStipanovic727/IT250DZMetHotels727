@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.metropolitan.methotels727.services;
+package com.metropolitan.methotels727.dao;
 
 import com.metropolitan.methotels727.entities.Soba;
 import java.util.List;
@@ -26,12 +26,12 @@ public class SobaDAOImpl implements SobaDAO {
 
     @Override
     public Soba getSobaById(Integer id) {
-        return (Soba) session.createCriteria(Soba.class).add(Restrictions.eq("sId", id)).uniqueResult();
+        return (Soba) session.createCriteria(Soba.class).add(Restrictions.eq("id", id)).uniqueResult();
     }
 
     @Override
-    public void dodajSobu(Soba soba) {
-        session.persist(soba);
+    public void dodajIliIzmeniSobu(Soba soba) {
+        session.merge(soba);
     }
 
     @Override

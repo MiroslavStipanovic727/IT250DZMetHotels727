@@ -5,8 +5,8 @@
     <div class="row">
                 
         <div class="col-sm-4 col-md-4 col-lg-3">        
-            <t:beaneditform object="specPonuda" exclude="spid" 
-                            reorder="spnaziv, sppopust" submitlabel="message:submit-label"
+            <t:beaneditform object="specPonuda" exclude="id" 
+                            reorder="naziv, popust" submitlabel="message:submit-label"
                             add="sid">
                 <p:sid>
                     <t:label for="sid"/>:
@@ -17,9 +17,9 @@
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
             <t:grid t:source="specPonude" add="delete,soba,brsobe"
-                    row="oneSpecijalnaPonuda" exclude="spid" reorder="spnaziv, sppopust, brsobe, soba, delete">
+                    row="oneSpecijalnaPonuda" exclude="id" reorder="naziv, popust, brsobe, soba, delete">
                 <p:deleteCell>
-                    <t:actionlink t:id="delete" context="oneSpecijalnaPonuda.spid">Delete</t:actionlink>
+                    <t:actionlink t:id="delete" context="oneSpecijalnaPonuda.id">Delete</t:actionlink>
                 </p:deleteCell>
                 <p:sobaCell>
                     ${soba}

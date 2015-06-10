@@ -7,7 +7,6 @@ package com.metropolitan.methotels727.entities;
 
 import com.metropolitan.methotels727.data.ImeSobe;
 import com.metropolitan.methotels727.data.Opcije;
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,9 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,107 +29,112 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 @Table(name = "soba")
 @NamedQueries({
     @NamedQuery(name = "Soba.findAll", query = "SELECT s FROM Soba s")})
-public class Soba implements Serializable {
+public class Soba extends AbstraktniEntitet {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "S_ID")
-    private Integer sId;
-    @Basic(optional = false)
-    @Column(name = "S_IME_SOBE")
+    @Column(name = "IME_SOBE")
     @Validate("required")
     @Enumerated(EnumType.STRING)
-    private ImeSobe sImeSobe;
+    private ImeSobe imeSobe;
     @Basic(optional = false)
-    @Column(name = "S_SPRAT")
+    @Column(name = "SPRAT")
     @Validate("required,min=0,max=10")
-    private int sSprat;
+    private int sprat;
     @Basic(optional = false)
-    @Column(name = "S_TV")
+    @Column(name = "TV")
     @Validate("required")
     @Enumerated(EnumType.STRING)
-    private Opcije sTv;
+    private Opcije tv;
     @Basic(optional = false)
-    @Column(name = "S_INTERNET")
+    @Column(name = "INTERNET")
     @Validate("required")
     @Enumerated(EnumType.STRING)
-    private Opcije sInternet;
+    private Opcije internet;
     @Basic(optional = false)
-    @Column(name = "S_DJAKUZI")
+    @Column(name = "DJAKUZI")
     @Validate("required")
     @Enumerated(EnumType.STRING)
-    private Opcije sDjakuzi;
-    @OneToMany(mappedBy = "sId")
+    private Opcije djakuzi;
+//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
+//    @OneToOne(optional = false)
+//    private AbstraktniEntitet abstraktniEntitet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sobId")
     private List<SpecijalnaPonuda> specijalnaPonudaList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sobId")
     private List<Rezervacija> rezervacijaList;
-    
+
     @Inject
     public Soba() {
     }
 
-    public Soba(Integer sId) {
-        this.sId = sId;
+    public Soba(Integer id) {
+        this.id = id;
     }
 
-    public Soba(Integer sId, ImeSobe sImeSobe, int sSprat, Opcije sTv, Opcije sInternet, Opcije sDjakuzi) {
-        this.sId = sId;
-        this.sImeSobe = sImeSobe;
-        this.sSprat = sSprat;
-        this.sTv = sTv;
-        this.sInternet = sInternet;
-        this.sDjakuzi = sDjakuzi;
+    public Soba(Integer id, ImeSobe imeSobe, int sprat, Opcije tv, Opcije internet, Opcije djakuzi) {
+        this.id = id;
+        this.imeSobe = imeSobe;
+        this.sprat = sprat;
+        this.tv = tv;
+        this.internet = internet;
+        this.djakuzi = djakuzi;
     }
 
-    public Integer getSId() {
-        return sId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSId(Integer sId) {
-        this.sId = sId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public ImeSobe getSImeSobe() {
-        return sImeSobe;
+    public ImeSobe getImeSobe() {
+        return imeSobe;
     }
 
-    public void setSImeSobe(ImeSobe sImeSobe) {
-        this.sImeSobe = sImeSobe;
+    public void setImeSobe(ImeSobe imeSobe) {
+        this.imeSobe = imeSobe;
     }
 
-    public int getSSprat() {
-        return sSprat;
+    public int getSprat() {
+        return sprat;
     }
 
-    public void setSSprat(int sSprat) {
-        this.sSprat = sSprat;
+    public void setSprat(int sprat) {
+        this.sprat = sprat;
     }
 
-    public Opcije getSTv() {
-        return sTv;
+    public Opcije getTv() {
+        return tv;
     }
 
-    public void setSTv(Opcije sTv) {
-        this.sTv = sTv;
+    public void setTv(Opcije tv) {
+        this.tv = tv;
     }
 
-    public Opcije getSInternet() {
-        return sInternet;
+    public Opcije getInternet() {
+        return internet;
     }
 
-    public void setSInternet(Opcije sInternet) {
-        this.sInternet = sInternet;
+    public void setInternet(Opcije internet) {
+        this.internet = internet;
     }
 
-    public Opcije getSDjakuzi() {
-        return sDjakuzi;
+    public Opcije getDjakuzi() {
+        return djakuzi;
     }
 
-    public void setSDjakuzi(Opcije sDjakuzi) {
-        this.sDjakuzi = sDjakuzi;
+    public void setDjakuzi(Opcije djakuzi) {
+        this.djakuzi = djakuzi;
     }
+
+//    public AbstraktniEntitet getAbstraktniEntitet() {
+//        return abstraktniEntitet;
+//    }
+//
+//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
+//        this.abstraktniEntitet = abstraktniEntitet;
+//    }
 
     public List<SpecijalnaPonuda> getSpecijalnaPonudaList() {
         return specijalnaPonudaList;
@@ -142,7 +143,7 @@ public class Soba implements Serializable {
     public void setSpecijalnaPonudaList(List<SpecijalnaPonuda> specijalnaPonudaList) {
         this.specijalnaPonudaList = specijalnaPonudaList;
     }
-    
+
     public List<Rezervacija> getRezervacijaList() {
         return rezervacijaList;
     }
@@ -154,7 +155,7 @@ public class Soba implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sId != null ? sId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -165,7 +166,7 @@ public class Soba implements Serializable {
             return false;
         }
         Soba other = (Soba) object;
-        if ((this.sId == null && other.sId != null) || (this.sId != null && !this.sId.equals(other.sId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -173,7 +174,7 @@ public class Soba implements Serializable {
 
     @Override
     public String toString() {
-        return "Soba br = " + sId + " tip sobe: " +getSImeSobe();
+        return "Soba br = " + id + " tip sobe: " +getImeSobe();
     }
-
+    
 }

@@ -76,7 +76,7 @@ public class Layout
         }
         
         public boolean getUlogovan(){
-        if(ulogovaniKorisnik.getKEmail()!=null)
+        if(ulogovaniKorisnik.getEmail()!=null)
             return true;
         else
             return false;

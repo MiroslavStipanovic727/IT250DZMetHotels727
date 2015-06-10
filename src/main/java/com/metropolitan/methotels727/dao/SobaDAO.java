@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.metropolitan.methotels727.services;
+package com.metropolitan.methotels727.dao;
 
 import com.metropolitan.methotels727.entities.Soba;
 import java.util.List;
@@ -16,7 +16,7 @@ public interface SobaDAO {
     
     public List<Soba> getListaSvihSoba();
     public Soba getSobaById(Integer id);
-    public void dodajSobu(Soba soba);
+    public void dodajIliIzmeniSobu(Soba soba);
     public void obrisiSobu(Integer id);
     
 }

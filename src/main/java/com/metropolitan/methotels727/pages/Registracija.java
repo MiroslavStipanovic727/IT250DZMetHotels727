@@ -7,7 +7,7 @@ package com.metropolitan.methotels727.pages;
 
 import com.metropolitan.methotels727.data.Uloga;
 import com.metropolitan.methotels727.entities.Korisnik;
-import com.metropolitan.methotels727.services.KorisnikDAO;
+import com.metropolitan.methotels727.dao.KorisnikDAO;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -48,12 +48,12 @@ public class Registracija {
     
     @CommitAfter
     Object onSuccess(){
-        if (!korisnikDAO.proveraDaLiPostojiEmail(korisnik.getKEmail())) {
-            String unhashPassword = korisnik.getKSifra();
-            korisnik.setKSifra(getMD5Hash(unhashPassword));
-            korisnik.setKUloga(Uloga.Korisnik);
+        if (!korisnikDAO.proveraDaLiPostojiEmail(korisnik.getEmail())) {
+            String unhashPassword = korisnik.getSifra();
+            korisnik.setSifra(getMD5Hash(unhashPassword));
+            korisnik.setUloga(Uloga.Korisnik);
             ulogovaniKorisnik = korisnikDAO.registrujKorisnika(korisnik);
-            ulogovaniEmail = ulogovaniKorisnik.getKEmail();
+            ulogovaniEmail = ulogovaniKorisnik.getEmail();
             return Index.class;
         } else {
             formaregistracija.recordError("Uneti email ve\u0107 postoji");

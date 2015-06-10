@@ -5,16 +5,16 @@
     <div class="row">
                 
         <div class="col-sm-4 col-md-4 col-lg-3">        
-            <t:beaneditform t:id="unossoba" object="soba" exclude="sid" reorder="simesobe, ssprat,
-                            stv, sinternet, sdjakuzi"
+            <t:beaneditform t:id="unossoba" object="soba" exclude="id" reorder="imesobe, sprat,
+                            tv, internet, djakuzi"
                             submitlabel="message:submit-label-soba"/>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
-            <t:grid t:source="sobe" exclude="sid" 
+            <t:grid t:source="sobe" exclude="id" 
                     add="deletesoba" row="onesoba"
-                    include="simesobe, ssprat, stv, sinternet, sdjakuzi">
+                    include="imesobe, sprat, tv, internet, djakuzi">
                 <p:deletesobaCell>
-                    <t:actionlink t:id="deletesoba" context="onesoba.sId">Delete</t:actionlink>
+                    <t:actionlink t:id="deletesoba" context="onesoba.id">Delete</t:actionlink>
                 </p:deletesobaCell>
             </t:grid>
         </div>
@@ -22,16 +22,17 @@
     <div class="row">
                 
         <div class="col-sm-4 col-md-4 col-lg-3">        
-            <t:beaneditform t:id="unoskorisnika" object="korisnik" reorder="kemail,ksifra,kime,kprezime,kuloga"
+            <t:beaneditform t:id="unoskorisnika" object="korisnik" exclude="id"
+                            reorder="email,sifra,ime,prezime,uloga"
                             submitlabel="message:submit-label-korisnik">
                 <t:errors/>            
             </t:beaneditform>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
             <t:grid t:source="korisnici" add="deletekorisnik" row="onekorisnik"
-                    include="kemail,ksifra,kime,kprezime,kuloga">
+                    exclude="id" include="email,sifra,ime,prezime,uloga">
                 <p:deletekorisnikCell>
-                    <t:actionlink t:id="deletekorisnik" context="onekorisnik.kEmail">Delete</t:actionlink>
+                    <t:actionlink t:id="deletekorisnik" context="onekorisnik.email">Delete</t:actionlink>
                 </p:deletekorisnikCell>
             </t:grid>
         </div>
@@ -39,8 +40,8 @@
     <div class="row">
                 
         <div class="col-sm-4 col-md-4 col-lg-3">        
-            <t:beaneditform t:id="unosrezervacija" object="rezervacija" exclude="rid" 
-                            reorder="rdatumprijave,rdatumodjave,rcena"
+            <t:beaneditform t:id="unosrezervacija" object="rezervacija" exclude="id" 
+                            reorder="datumprijave,datumodjave"
                             submitlabel="message:submit-label-rezervacija" add="sid, kemail">
                 <p:sid>
                     <t:label for="sid"/>:
@@ -55,11 +56,11 @@
             </t:beaneditform>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
-            <t:grid t:source="rezervacije" exclude="rid" 
-                    add="deleterezervacija,soba,korisnik" row="onerezervacija"
-                    reorder="rdatumprijave,rdatumodjave,rcena,soba,korisnik">
+            <t:grid t:source="rezervacije" exclude="id" 
+                    add="deleterezervacija,soba,korisnik,cena" row="onerezervacija"
+                    reorder="datumprijave,datumodjave,soba,korisnik,cena">
                 <p:deleterezervacijaCell>
-                    <t:actionlink t:id="deleterezervacija" context="onerezervacija.rId">Delete</t:actionlink>
+                    <t:actionlink t:id="deleterezervacija" context="onerezervacija.id">Delete</t:actionlink>
                 </p:deleterezervacijaCell>
                 <p:sobaCell>
                     ${sobaa}
@@ -67,6 +68,10 @@
                 <p:korisnikCell>
                     ${korisnikk}
                 </p:korisnikCell>
+                <p:cenaCell>
+                    <t:CenaObracunComp datumPrijave="datump" datumOdjave="datumo"
+                    cenaPoDanu="cpd" popust="popust"/>
+                </p:cenaCell>
             </t:grid>
         </div>
     </div>    

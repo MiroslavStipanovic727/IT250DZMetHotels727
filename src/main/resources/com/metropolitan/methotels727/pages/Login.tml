@@ -2,13 +2,13 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
             
-      <t:beaneditform t:id="formalogin" object="korisnik" exclude="kime,kprezime,kuloga"
+      <t:beaneditform t:id="formalogin" object="korisnik" exclude="id,ime,prezime,uloga"
       submitlabel="message:submit-label">
         <t:errors/>
-        <p:ksifra>
-            <t:label for="ksifra"/>
-            <t:passwordfield t:id="ksifra" value="korisnik.ksifra"/>
-        </p:ksifra>
+        <p:sifra>
+            <t:label for="sifra"/>
+            <t:passwordfield t:id="sifra" value="korisnik.sifra"/>
+        </p:sifra>
     </t:beaneditform>
     
 </html>

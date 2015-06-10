@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.metropolitan.methotels727.services;
+package com.metropolitan.methotels727.dao;
 
 import com.metropolitan.methotels727.entities.Korisnik;
 import java.util.List;

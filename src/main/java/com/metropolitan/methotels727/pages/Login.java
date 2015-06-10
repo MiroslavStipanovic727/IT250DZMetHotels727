@@ -6,7 +6,7 @@
 package com.metropolitan.methotels727.pages;
 
 import com.metropolitan.methotels727.entities.Korisnik;
-import com.metropolitan.methotels727.services.KorisnikDAO;
+import com.metropolitan.methotels727.dao.KorisnikDAO;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -31,7 +31,7 @@ public class Login {
     private BeanEditForm formalogin;
     
     Object onActivate() {
-        if (ulogovaniKorisnik.getKEmail() != null) {
+        if (ulogovaniKorisnik.getEmail() != null) {
             return Index.class;
         }
         return null;
@@ -52,11 +52,11 @@ public class Login {
     }
     
     Object onSuccess(){
-        String sifra = getMD5Hash(korisnik.getKSifra());
-        Korisnik k = korisnikDAO.proveriKorisnika(korisnik.getKEmail(), sifra);
+        String sifra = getMD5Hash(korisnik.getSifra());
+        Korisnik k = korisnikDAO.proveriKorisnika(korisnik.getEmail(), sifra);
         if(k!=null){
             ulogovaniKorisnik = k;
-            ulogovaniEmail = k.getKEmail();
+            ulogovaniEmail = k.getEmail();
             System.out.println("Uspešno logovanje na sistem korisnika "+ulogovaniEmail);
             return Index.class;
             

@@ -7,8 +7,8 @@ package com.metropolitan.methotels727.pages;
 
 import com.metropolitan.methotels727.entities.Soba;
 import com.metropolitan.methotels727.entities.SpecijalnaPonuda;
-import com.metropolitan.methotels727.services.SobaDAO;
-import com.metropolitan.methotels727.services.SpecijalnePonudeDAO;
+import com.metropolitan.methotels727.dao.SobaDAO;
+import com.metropolitan.methotels727.dao.SpecijalnePonudeDAO;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.tapestry5.ValueEncoder;
@@ -16,11 +16,10 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 /**
  *
- * @author Miroslav Stipanoviæ 727
+ * @author Miroslav StipanoviÄ‡ 727
  */
 public class SpecijalnePonude {
     @Property
@@ -45,7 +44,7 @@ public class SpecijalnePonude {
 
             @Override
             public String toClient(Soba v) {
-                return String.valueOf(v.getSId());
+                return String.valueOf(v.getId());
             }
 
             @Override
@@ -72,14 +71,14 @@ public class SpecijalnePonude {
      
     @CommitAfter
     Object onSuccess(){
-        specPonuda.setSId(sid);
+        specPonuda.setSobId(sid);
        spDAO.dodajSpecijalnuPonudu(specPonuda);
         return this;
     }
     
     public String getSoba(){
-        if(oneSpecijalnaPonuda.getSId()!=null){
-            return oneSpecijalnaPonuda.getSId().getSImeSobe().name();
+        if(oneSpecijalnaPonuda.getSobId()!=null){
+            return oneSpecijalnaPonuda.getSobId().getImeSobe().name();
         }
         else {
             return "";
@@ -88,8 +87,8 @@ public class SpecijalnePonude {
     }
     
     public String getBrsobe(){
-        if(oneSpecijalnaPonuda.getSId()!=null){
-            return ""+oneSpecijalnaPonuda.getSId().getSId();
+        if(oneSpecijalnaPonuda.getSobId()!=null){
+            return ""+oneSpecijalnaPonuda.getSobId().getId();
         }
         else {
             return "";

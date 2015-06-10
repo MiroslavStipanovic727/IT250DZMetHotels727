@@ -1,0 +1,8 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">            
+    <t:content>
+        <div style="border: 2px solid #f5f5dc;">
+        <strong><em>${cena}</em></strong>
+        </div>
+    </t:content>
+    
+</html>

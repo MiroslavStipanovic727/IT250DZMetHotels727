@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.metropolitan.methotels727.services;
+package com.metropolitan.methotels727.dao;
 
 import com.metropolitan.methotels727.entities.Korisnik;
 import java.util.List;
@@ -27,7 +27,7 @@ public class KorisnikDAOImpl implements KorisnikDAO {
 
     @Override
     public Korisnik getKorisnikByEmail(String email) {
-        return (Korisnik) session.createCriteria(Korisnik.class).add(Restrictions.eq("kEmail",email)).uniqueResult();
+        return (Korisnik) session.createCriteria(Korisnik.class).add(Restrictions.eq("email",email)).uniqueResult();
     }
 
     @Override
@@ -44,8 +44,8 @@ public class KorisnikDAOImpl implements KorisnikDAO {
     @Override
     public Korisnik proveriKorisnika(String email, String sifra) {
         try {
-            Korisnik k = (Korisnik) session.createCriteria(Korisnik.class).add(Restrictions.eq("kEmail",
-            email)).add(Restrictions.eq("kSifra", sifra)).uniqueResult();
+            Korisnik k = (Korisnik) session.createCriteria(Korisnik.class).add(Restrictions.eq("email",
+            email)).add(Restrictions.eq("sifra", sifra)).uniqueResult();
             if (k != null) {
                 return k;
             }
@@ -63,7 +63,7 @@ public class KorisnikDAOImpl implements KorisnikDAO {
 
     @Override
     public boolean proveraDaLiPostojiEmail(String email) {
-        Long redovi = (Long)session.createCriteria(Korisnik.class).add(Restrictions.eq("kEmail",
+        Long redovi = (Long)session.createCriteria(Korisnik.class).add(Restrictions.eq("email",
             email)).setProjection(Projections.rowCount()).uniqueResult();
         return (redovi==0) ? false : true;
     }
