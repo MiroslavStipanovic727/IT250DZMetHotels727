@@ -5,7 +5,10 @@
  */
 package com.metropolitan.methotels727.dao;
 
+import com.metropolitan.methotels727.entities.Korisnik;
 import com.metropolitan.methotels727.entities.Rezervacija;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
@@ -40,6 +43,15 @@ public class RezervacijaDAOImpl implements RezervacijaDAO {
     public void obrisiRezervaciju(Integer id) {
         Rezervacija rezervacija = getRezervacijaById(id);
         session.delete(rezervacija);
+    }
+
+    @Override
+    public boolean aktivnaRezervacijaKorisnika(Korisnik korisnik) {
+        Date sad = Calendar.getInstance().getTime();
+        return !(session.createCriteria(Rezervacija.class)
+                .add(Restrictions.eq("korId", korisnik))
+                .add(Restrictions.lt("datumPrijave", sad))
+                .add(Restrictions.gt("datumOdjave", sad)).list().isEmpty());
     }
     
     

@@ -73,16 +73,4 @@ public class Sobe extends GenerickiEditor<Soba>{
 //        return json;
 //    }
     
-//    void onActivate(){
-//        System.out.println("ON ACTIVATE OVDE");
-//        System.out.println("GE.GETCLASS.TOSTRING: "+ge.getClass().toString());
-//        System.out.println("GE.TOSTRING"+ge.toString());
-//        try{
-//        System.out.println("GE.getGrid.getClass: "+ge.getGrid().getClass());
-//        System.out.println("GE.getFormModel.getClass: "+ge.getFormModel().getClass());
-//        } catch(Exception ex){
-//            System.out.println("Exception!!!: "+ex.getMessage());
-//        }
-//    }
-    
 }

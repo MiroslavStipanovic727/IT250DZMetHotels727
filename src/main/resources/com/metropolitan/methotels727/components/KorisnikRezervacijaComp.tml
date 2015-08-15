@@ -1,0 +1,15 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">            
+    <t:content>
+        <t:if test="AktivnaRezervacijaGosta">
+            <div style="border: 3px solid #ff5555;">
+            <b><u>${AktivnaRezervacija}</u></b>
+            </div>
+        </t:if>
+        <t:if test="!AktivnaRezervacijaGosta">
+            <div style="border: 3px dotted #fafa55;">
+            <b><u>${NeaktivnaRezervacija}</u></b>
+            </div>
+        </t:if>
+    </t:content>
+    
+</html>

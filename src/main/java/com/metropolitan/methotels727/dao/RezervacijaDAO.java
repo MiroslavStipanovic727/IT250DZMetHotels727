@@ -5,6 +5,7 @@
  */
 package com.metropolitan.methotels727.dao;
 
+import com.metropolitan.methotels727.entities.Korisnik;
 import com.metropolitan.methotels727.entities.Rezervacija;
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface RezervacijaDAO {
     public Rezervacija getRezervacijaById(Integer id);
     public void dodajRezervaciju(Rezervacija rezervacija);
     public void obrisiRezervaciju(Integer id);
+    public boolean aktivnaRezervacijaKorisnika(Korisnik korisnik);
 }

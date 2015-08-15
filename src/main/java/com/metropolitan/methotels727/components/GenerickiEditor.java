@@ -7,9 +7,11 @@ package com.metropolitan.methotels727.components;
 
 import com.metropolitan.methotels727.entities.AbstraktniEntitet;
 import com.metropolitan.methotels727.dao.GenerickiDAO;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PropertyConduit;
+import org.apache.tapestry5.annotations.PageLoaded;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.BeanModel;
@@ -38,6 +40,8 @@ public class GenerickiEditor<T extends AbstraktniEntitet> {
     private BeanModelSource bms;
     @Inject
     private ComponentResources cr;
+    @Property
+    private List<T> lista;
     
     private Class klasa;
     
@@ -46,10 +50,18 @@ public class GenerickiEditor<T extends AbstraktniEntitet> {
         klasa = conduit1.getPropertyType();
     }
     
-    public List<T> getGrid(){
-        List<T> temp = generickiDAO.getListaSvihObjekata(klasa);
-        return temp;
+    @PageLoaded
+    void kesMetoda(){
+        if(lista==null){
+            lista = new ArrayList<T>();
+        }
+        lista = generickiDAO.getListaSvihObjekata(klasa);
     }
+    
+//    public List<T> getGrid(){
+//        List<T> temp = generickiDAO.getListaSvihObjekata(klasa);
+//        return temp;
+//    }
     
     public BeanModel<T> getFormModel(){
         return bms.createEditModel(klasa, cr.getMessages()).exclude("id");
@@ -61,7 +73,7 @@ public class GenerickiEditor<T extends AbstraktniEntitet> {
     
     @CommitAfter
     Object onActionFromDelete(int id){
-        generickiDAO.obrisi(id, klasa);
+        lista.remove(generickiDAO.obrisi(id, klasa));
         return this;
     }
        
@@ -73,7 +85,7 @@ public class GenerickiEditor<T extends AbstraktniEntitet> {
     
     @CommitAfter
     Object onSuccess(){
-        generickiDAO.dodajIliUpdatuj(bean);
+        lista.add((T) generickiDAO.dodajIliUpdatuj(bean));
         try {
             bean = (T) klasa.newInstance();
         } catch(Exception ex){

@@ -29,11 +29,14 @@
             </t:beaneditform>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
-            <t:grid t:source="korisnici" add="deletekorisnik" row="onekorisnik"
+            <t:grid t:source="korisnici" add="deletekorisnik, aktivnarezervacija" row="onekorisnik"
                     exclude="id" include="email,sifra,ime,prezime,uloga">
                 <p:deletekorisnikCell>
                     <t:actionlink t:id="deletekorisnik" context="onekorisnik.email">Delete</t:actionlink>
                 </p:deletekorisnikCell>
+                <p:aktivnarezervacijaCell>
+                    <t:KorisnikRezervacijaComp gost="onekorisnik"/>
+                </p:aktivnarezervacijaCell>
             </t:grid>
         </div>
     </div> 
