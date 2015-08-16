@@ -8,7 +8,9 @@ package com.metropolitan.methotels727.dao;
 import com.metropolitan.methotels727.entities.Korisnik;
 import java.util.List;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -24,7 +26,28 @@ public class KorisnikDAOImpl implements KorisnikDAO {
     public List<Korisnik> getListaSvihKorisnika() {
         return session.createCriteria(Korisnik.class).list();
     }
+    
+    @Override
+    public List<Korisnik> getListaSvihKorisnikaPoImenu(String ime) {
+        return session.createCriteria(Korisnik.class)
+                .add(Restrictions.ilike("ime", ime + "%")).list();
+    }
 
+    @Override
+    public List<Korisnik> getListaSvihKorisnikaPoPrezimenu(String prezime) {
+        return session.createCriteria(Korisnik.class)
+                .add(Restrictions.ilike("prezime", prezime + "%")).list();
+    }
+    
+    @Override
+    public List<Korisnik> getListaKorisnikaOdDo(int od) {
+        int strana = (od - 1) * 20;
+        List<Korisnik> lista =
+        session.createCriteria(Korisnik.class).setFirstResult(strana).setMaxResults(20)
+                .addOrder(Order.asc("id")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+        return lista;
+    }
+    
     @Override
     public Korisnik getKorisnikByEmail(String email) {
         return (Korisnik) session.createCriteria(Korisnik.class).add(Restrictions.eq("email",email)).uniqueResult();
@@ -68,4 +91,8 @@ public class KorisnikDAOImpl implements KorisnikDAO {
         return (redovi==0) ? false : true;
     }
     
+    @Override 
+    public int getBrojSvihKorisnika(){
+        return getListaSvihKorisnika().size();
+    }
 }

@@ -15,11 +15,15 @@ import java.util.List;
 public interface KorisnikDAO {
     
     public List<Korisnik> getListaSvihKorisnika();
+    public List<Korisnik> getListaSvihKorisnikaPoImenu(String ime);
+    public List<Korisnik> getListaSvihKorisnikaPoPrezimenu(String prezime);
+    public List<Korisnik> getListaKorisnikaOdDo(int od);
     public Korisnik getKorisnikByEmail(String email);
     public void dodajKorisnika(Korisnik korisnik);
     public void obrisiKorisnika(String email);
     public Korisnik proveriKorisnika(String email, String sifra);
     public Korisnik registrujKorisnika(Korisnik korisnik);
     public boolean proveraDaLiPostojiEmail(String email);
+    public int getBrojSvihKorisnika();
     
 }

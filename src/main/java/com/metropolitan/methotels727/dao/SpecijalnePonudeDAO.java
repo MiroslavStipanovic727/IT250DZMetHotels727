@@ -14,7 +14,10 @@ import java.util.List;
  */
 public interface SpecijalnePonudeDAO {
     public List<SpecijalnaPonuda> getListaSvihSpecijalnihPonuda();
+    public List<SpecijalnaPonuda> getListaSvihSpecijalnihPonudaPoNazivu(String naziv);
+    public List<SpecijalnaPonuda> getListaSpecijalnihPonudaOdDo(int od);
     public SpecijalnaPonuda getSpecijalnaPonudaById(Integer id);
     public void dodajSpecijalnuPonudu(SpecijalnaPonuda specijanaPonuda);
     public void obrisiSpecijalnuPonudu(Integer id);
+    public int getBrojSvihSpecijalnihPonuda();
 }

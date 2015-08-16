@@ -16,7 +16,10 @@
             </t:beaneditform>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
-            <t:grid t:source="specPonude" add="delete,soba,brsobe"
+            Pretraga: <input type="text" id="pretaga" />
+            <div id="table">
+            </div>
+            <!--<t:grid t:source="specPonude" add="delete,soba,brsobe"
                     row="oneSpecijalnaPonuda" exclude="id" reorder="naziv, popust, brsobe, soba, delete">
                 <p:deleteCell>
                     <t:actionlink t:id="delete" context="oneSpecijalnaPonuda.id">Delete</t:actionlink>
@@ -27,7 +30,7 @@
                 <p:brsobeCell>
                     ${brsobe}
                 </p:brsobeCell>
-            </t:grid>
+            </t:grid>-->
         </div>
     </div> 
     

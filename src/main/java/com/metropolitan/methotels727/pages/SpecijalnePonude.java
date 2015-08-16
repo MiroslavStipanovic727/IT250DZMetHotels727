@@ -12,6 +12,7 @@ import com.metropolitan.methotels727.dao.SpecijalnePonudeDAO;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.tapestry5.ValueEncoder;
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -21,6 +22,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  *
  * @author Miroslav Stipanović 727
  */
+@Import(library = "context:/js/PretragaIStranicenjeSP.js")
 public class SpecijalnePonude {
     @Property
     private SpecijalnaPonuda specPonuda;
@@ -96,9 +98,9 @@ public class SpecijalnePonude {
         
     }
     
-    @CommitAfter
-    Object onActionFromDelete(int id){
-        spDAO.obrisiSpecijalnuPonudu(id);
-        return this;
-    }
+//    @CommitAfter
+//    Object onActionFromDelete(int id){
+//        spDAO.obrisiSpecijalnuPonudu(id);
+//        return this;
+//    }
 }

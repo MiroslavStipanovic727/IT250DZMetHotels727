@@ -16,6 +16,7 @@ import java.util.List;
 public interface RezervacijaDAO {
     
     public List<Rezervacija> getListaSvihRezervacija();
+    public List<Rezervacija> getListaSvihRezervacijaPoImenuKorisnika(String ime);
     public Rezervacija getRezervacijaById(Integer id);
     public void dodajRezervaciju(Rezervacija rezervacija);
     public void obrisiRezervaciju(Integer id);

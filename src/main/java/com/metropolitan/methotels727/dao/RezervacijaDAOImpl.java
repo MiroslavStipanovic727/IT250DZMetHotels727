@@ -27,6 +27,12 @@ public class RezervacijaDAOImpl implements RezervacijaDAO {
     public List<Rezervacija> getListaSvihRezervacija() {
         return session.createCriteria(Rezervacija.class).list();
     }
+    
+    @Override
+    public List<Rezervacija> getListaSvihRezervacijaPoImenuKorisnika(String ime) {
+        return session.createCriteria(Rezervacija.class).createAlias("korId", "k")
+                .add(Restrictions.ilike("k.ime", ime + "%")).list();
+    }
 
     @Override
     public Rezervacija getRezervacijaById(Integer id) {

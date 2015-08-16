@@ -14,7 +14,7 @@
                     add="deletesoba" row="onesoba"
                     include="imesobe, sprat, tv, internet, djakuzi">
                 <p:deletesobaCell>
-                    <t:actionlink t:id="deletesoba" context="onesoba.id">Delete</t:actionlink>
+                    <t:actionlink t:id="deletesoba" context="onesoba.id" t:mixins="PotvrdaBrisanja">Delete</t:actionlink>
                 </p:deletesobaCell>
             </t:grid>
         </div>
@@ -32,7 +32,7 @@
             <t:grid t:source="korisnici" add="deletekorisnik, aktivnarezervacija" row="onekorisnik"
                     exclude="id" include="email,sifra,ime,prezime,uloga">
                 <p:deletekorisnikCell>
-                    <t:actionlink t:id="deletekorisnik" context="onekorisnik.email">Delete</t:actionlink>
+                    <t:actionlink t:id="deletekorisnik" context="onekorisnik.email" t:mixins="PotvrdaBrisanja">Delete</t:actionlink>
                 </p:deletekorisnikCell>
                 <p:aktivnarezervacijaCell>
                     <t:KorisnikRezervacijaComp gost="onekorisnik"/>
@@ -63,7 +63,7 @@
                     add="deleterezervacija,soba,korisnik,cena" row="onerezervacija"
                     reorder="datumprijave,datumodjave,soba,korisnik,cena">
                 <p:deleterezervacijaCell>
-                    <t:actionlink t:id="deleterezervacija" context="onerezervacija.id">Delete</t:actionlink>
+                    <t:actionlink t:id="deleterezervacija" context="onerezervacija.id" t:mixins="PotvrdaBrisanja">Delete</t:actionlink>
                 </p:deleterezervacijaCell>
                 <p:sobaCell>
                     ${sobaa}

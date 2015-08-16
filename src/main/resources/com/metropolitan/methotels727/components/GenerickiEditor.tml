@@ -8,7 +8,7 @@ xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:p
             <t:actionlink t:id="edit" context="red">Izmeni</t:actionlink>
         </p:editCell>
         <p:deleteCell>
-            <t:actionlink t:id="delete" context="red">Delete</t:actionlink>
+            <t:actionlink t:id="delete" context="red" t:mixins="PotvrdaBrisanja">Delete</t:actionlink>
         </p:deleteCell>
     </t:grid>
 </html>
