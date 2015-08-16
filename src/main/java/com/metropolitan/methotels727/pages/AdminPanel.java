@@ -14,6 +14,7 @@ import com.metropolitan.methotels727.dao.KorisnikDAO;
 import com.metropolitan.methotels727.services.ProtectedPage;
 import com.metropolitan.methotels727.dao.RezervacijaDAO;
 import com.metropolitan.methotels727.dao.SobaDAO;
+import com.metropolitan.methotels727.data.Opcije;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,11 +23,17 @@ import javax.annotation.security.RolesAllowed;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Import;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.BeanEditForm;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.got5.tapestry5.jquery.components.InPlaceEditor;
 
 /**
  *
@@ -36,15 +43,23 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 @RolesAllowed(value={"Admin"})
 public class AdminPanel {
     
+    @Persist
     @Property
     private Soba soba;
     @Property
     private Soba onesoba;
     @Inject
     private SobaDAO sobaDAO;
-    
     @Property
     private List<Soba> sobe;
+    @InjectComponent
+    private Zone zonaFormeSoba;
+    @InjectComponent
+    private Zone zonaGridaSobe;
+    @Inject
+    private Request request;
+    @Inject
+    private AjaxResponseRenderer ajaxRR;
     
     @Property
     private Korisnik korisnik;
@@ -52,7 +67,6 @@ public class AdminPanel {
     private Korisnik onekorisnik;
     @Inject
     private KorisnikDAO korisnikDAO;
-    
     @Property
     private List<Korisnik> korisnici;
     
@@ -62,7 +76,6 @@ public class AdminPanel {
     private Rezervacija onerezervacija;
     @Inject
     private RezervacijaDAO rezervacijaDAO;
-    
     @Property
     private Soba sid;
     
@@ -118,9 +131,6 @@ public class AdminPanel {
     private BeanEditForm unoskorisnika;        
     
     void onActivate(){
-        soba = new Soba();
-        korisnik = new Korisnik();
-        rezervacija = new Rezervacija();
         if(sobe==null){
             sobe = new ArrayList<Soba>();
         }
@@ -140,14 +150,66 @@ public class AdminPanel {
     
     @CommitAfter
     Object onSuccessFromUnosSoba(){
-       sobaDAO.dodajIliIzmeniSobu(soba);
-        return this;
+        sobaDAO.dodajIliIzmeniSobu(soba);
+        sobe = sobaDAO.getListaSvihSoba();
+        soba = new Soba();
+        if(request.isXHR()){
+            ajaxRR.addRender(zonaGridaSobe).addRender(zonaFormeSoba);
+        }
+        return request.isXHR() ? zonaGridaSobe.getBody() : null;
+    }
+    
+    @CommitAfter
+    Object onActionFromEditSoba(Soba sobaZaMenjanje){
+        soba = sobaZaMenjanje;
+        return request.isXHR() ? zonaFormeSoba.getBody() : null;
     }
     
     @CommitAfter
     Object onActionFromDeleteSoba(int id){
         sobaDAO.obrisiSobu(id);
-        return this;
+        sobe = sobaDAO.getListaSvihSoba();
+        return request.isXHR() ? zonaGridaSobe.getBody() : null;
+    }
+    
+    @CommitAfter
+    @OnEvent(component = "imeSobe", value = InPlaceEditor.SAVE_EVENT)
+    void setImeSobe(Long id, ImeSobe value) {
+        Soba sobaIzmena = sobaDAO.getSobaById(id.intValue());
+        sobaIzmena.setImeSobe(value);
+        sobaDAO.dodajIliIzmeniSobu(sobaIzmena);
+    }
+    
+    @CommitAfter
+    @OnEvent(component = "sprat", value = InPlaceEditor.SAVE_EVENT)
+    void setSprat(Long id, int value) {
+        Soba sobaIzmena = sobaDAO.getSobaById(id.intValue());
+        sobaIzmena.setSprat(value);
+        sobaDAO.dodajIliIzmeniSobu(sobaIzmena);
+    }
+    
+    @CommitAfter
+    @OnEvent(component = "tv", value = InPlaceEditor.SAVE_EVENT)
+    void setTv(Long id, Opcije value) {
+        Soba sobaIzmena = sobaDAO.getSobaById(id.intValue());
+        sobaIzmena.setTv(value);
+        sobaDAO.dodajIliIzmeniSobu(sobaIzmena);
+    }
+    
+    @CommitAfter
+    @OnEvent(component = "internet", value = InPlaceEditor.SAVE_EVENT)
+    void setInternet(Long id, Opcije value) {
+        Soba sobaIzmena = sobaDAO.getSobaById(id.intValue());
+        sobaIzmena.setInternet(value);
+        sobaDAO.dodajIliIzmeniSobu(sobaIzmena);
+    }
+    
+    @CommitAfter
+    @OnEvent(component = "djakuzi", value = InPlaceEditor.SAVE_EVENT)
+    void setDjakuzi(Long id, Opcije value) {
+        Soba sobaIzmena = sobaDAO.getSobaById(id.intValue());
+        sobaIzmena.setDjakuzi(value);
+        sobaDAO.dodajIliIzmeniSobu(sobaIzmena);
     }
     
     public String getMD5Hash(String yourString) {

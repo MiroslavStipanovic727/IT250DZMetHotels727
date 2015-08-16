@@ -4,19 +4,46 @@
             
     <div class="row">
                 
-        <div class="col-sm-4 col-md-4 col-lg-3">        
-            <t:beaneditform t:id="unossoba" object="soba" exclude="id" reorder="imesobe, sprat,
-                            tv, internet, djakuzi"
-                            submitlabel="message:submit-label-soba"/>
+        <div class="col-sm-4 col-md-4 col-lg-3">   
+            <t:zone t:id="zonaFormeSoba">     
+                <t:beaneditform t:id="unossoba" object="soba" exclude="id" reorder="imesobe, sprat,
+                                tv, internet, djakuzi" t:zone="zonaGridaSobe"
+                                submitlabel="message:submit-label-soba"/>
+            </t:zone>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-9"> 
-            <t:grid t:source="sobe" exclude="id" 
-                    add="deletesoba" row="onesoba"
-                    include="imesobe, sprat, tv, internet, djakuzi">
-                <p:deletesobaCell>
-                    <t:actionlink t:id="deletesoba" context="onesoba.id" t:mixins="PotvrdaBrisanja">Delete</t:actionlink>
-                </p:deletesobaCell>
-            </t:grid>
+            <t:zone t:id="zonaGridaSobe">  
+                <t:grid t:source="sobe" exclude="id" t:inplace="true"
+                        add="editsoba, deletesoba" row="onesoba"
+                        reorder="imesobe, sprat, tv, internet, djakuzi">
+                    <p:imeSobeCell>
+                        <div t:id="imeSobe" value="onesoba.imeSobe" t:type="jquery/inPlaceEditor"
+                                t:context="onesoba.id"/>
+                    </p:imeSobeCell>
+                    <p:spratCell>
+                        <div t:id="sprat" value="onesoba.sprat" t:type="jquery/inPlaceEditor"
+                                t:context="onesoba.id"/>
+                    </p:spratCell>
+                    <p:tvCell>
+                        <div t:id="tv" value="onesoba.tv" t:type="jquery/inPlaceEditor"
+                                t:context="onesoba.id"/>
+                    </p:tvCell>
+                    <p:internetCell>
+                        <div t:id="internet" value="onesoba.internet" t:type="jquery/inPlaceEditor"
+                                t:context="onesoba.id"/>
+                    </p:internetCell>
+                    <p:djakuziCell>
+                        <div t:id="djakuzi" value="onesoba.djakuzi" t:type="jquery/inPlaceEditor"
+                                t:context="onesoba.id"/>
+                    </p:djakuziCell>
+                    <p:editsobaCell>
+                        <t:actionlink t:id="editsoba" t:zone="zonaFormeSoba" context="onesoba">Izmeni</t:actionlink>
+                    </p:editsobaCell>    
+                    <p:deletesobaCell>
+                        <t:actionlink t:id="deletesoba" t:zone="zonaGridaSobe" context="onesoba.id" t:mixins="PotvrdaBrisanja">Delete</t:actionlink>
+                    </p:deletesobaCell>
+                </t:grid>
+            </t:zone>
         </div>
     </div> 
     <div class="row">
