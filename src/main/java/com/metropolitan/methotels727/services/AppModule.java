@@ -1,15 +1,26 @@
 package com.metropolitan.methotels727.services;
 
+import com.metropolitan.methotels727.rest.SobeWebService;
+import com.metropolitan.methotels727.rest.RezervacijeWebService;
+import com.metropolitan.methotels727.rest.KorisniciWebServiceInterface;
+import com.metropolitan.methotels727.rest.SobeWebServiceInterface;
+import com.metropolitan.methotels727.rest.KorisniciWebService;
+import com.metropolitan.methotels727.rest.SpecijalnePonudeWebServiceInterface;
+import com.metropolitan.methotels727.rest.SpecijalnePonudeWebService;
+import com.metropolitan.methotels727.rest.RezervacijeWebServiceInterface;
 import com.metropolitan.methotels727.dao.*;
 import java.io.IOException;
-
 import org.apache.tapestry5.*;
+import org.apache.tapestry5.hibernate.HibernateTransactionAdvisor;
+import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.MethodAdviceReceiver;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.annotations.Match;
 import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.services.*;
@@ -31,6 +42,10 @@ public class AppModule
         binder.bind(KorisnikDAO.class, KorisnikDAOImpl.class);
         binder.bind(RezervacijaDAO.class, RezervacijaDAOImpl.class);
         binder.bind(GenerickiDAO.class, GenerickiDAOImpl.class);
+        binder.bind(SobeWebServiceInterface.class, SobeWebService.class);
+        binder.bind(SpecijalnePonudeWebServiceInterface.class, SpecijalnePonudeWebService.class);
+        binder.bind(KorisniciWebServiceInterface.class, KorisniciWebService.class);
+        binder.bind(RezervacijeWebServiceInterface.class, RezervacijeWebService.class);
 
 // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
@@ -176,4 +191,38 @@ public class AppModule
 //            }
 //        };
 //    }
+    
+    @Match("*Soba*")
+    public static void adviseTransactionallySoba(
+            HibernateTransactionAdvisor advisor, MethodAdviceReceiver receiver) {
+        advisor.addTransactionCommitAdvice(receiver);
+    }
+    
+    @Match("*SpecijalnaPonuda*")
+    public static void adviseTransactionallySpecijalnaPonuda(
+            HibernateTransactionAdvisor advisor, MethodAdviceReceiver receiver) {
+        advisor.addTransactionCommitAdvice(receiver);
+    }
+    
+    @Match("*Korisnik*")
+    public static void adviseTransactionallyKorisnik(
+            HibernateTransactionAdvisor advisor, MethodAdviceReceiver receiver) {
+        advisor.addTransactionCommitAdvice(receiver);
+    }
+    
+    @Match("*Rezervacija*")
+    public static void adviseTransactionallyRezervacija(
+            HibernateTransactionAdvisor advisor, MethodAdviceReceiver receiver) {
+        advisor.addTransactionCommitAdvice(receiver);
+    }
+    
+    @Contribute(javax.ws.rs.core.Application.class)
+    public static void configureRestResources(Configuration<Object> singletons,
+            SobeWebServiceInterface soWeb, SpecijalnePonudeWebServiceInterface spWeb,
+            KorisniciWebServiceInterface koWeb, RezervacijeWebServiceInterface reWeb) {
+        singletons.add(soWeb);
+        singletons.add(spWeb);
+        singletons.add(koWeb);
+        singletons.add(reWeb);
+    }
 }

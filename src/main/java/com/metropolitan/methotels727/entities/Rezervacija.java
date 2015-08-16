@@ -5,22 +5,18 @@
  */
 package com.metropolitan.methotels727.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -29,6 +25,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Miroslav
  */
 @Entity
+@XmlRootElement
 @Table(name = "rezervacija")
 @NamedQueries({
     @NamedQuery(name = "Rezervacija.findAll", query = "SELECT r FROM Rezervacija r")})
@@ -52,9 +49,6 @@ public class Rezervacija extends AbstraktniEntitet {
     @ManyToOne(optional = false)
     @Validate("required")
     private Korisnik korId;
-//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-//    @OneToOne(optional = false)
-//    private AbstraktniEntitet abstraktniEntitet;
 
     @Inject
     public Rezervacija() {
@@ -109,14 +103,6 @@ public class Rezervacija extends AbstraktniEntitet {
     public void setKorId(Korisnik korId) {
         this.korId = korId;
     }
-
-//    public AbstraktniEntitet getAbstraktniEntitet() {
-//        return abstraktniEntitet;
-//    }
-//
-//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
-//        this.abstraktniEntitet = abstraktniEntitet;
-//    }
 
     @Override
     public int hashCode() {

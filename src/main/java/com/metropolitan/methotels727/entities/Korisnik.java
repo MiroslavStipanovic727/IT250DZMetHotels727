@@ -6,7 +6,6 @@
 package com.metropolitan.methotels727.entities;
 
 import com.metropolitan.methotels727.data.Uloga;
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,15 +13,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -31,6 +27,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Miroslav
  */
 @Entity
+@XmlRootElement
 @Table(name = "korisnik")
 @NamedQueries({
     @NamedQuery(name = "Korisnik.findAll", query = "SELECT k FROM Korisnik k")})
@@ -57,9 +54,7 @@ public class Korisnik extends AbstraktniEntitet{
     @Column(name = "PREZIME")
     @Validate("required")
     private String prezime;
-//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-//    @OneToOne(optional = false)
-//    private AbstraktniEntitet abstraktniEntitet;
+    @XmlTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "korId")
     private List<Rezervacija> rezervacijaList;
 
@@ -128,14 +123,7 @@ public class Korisnik extends AbstraktniEntitet{
         this.prezime = prezime;
     }
 
-//    public AbstraktniEntitet getAbstraktniEntitet() {
-//        return abstraktniEntitet;
-//    }
-//
-//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
-//        this.abstraktniEntitet = abstraktniEntitet;
-//    }
-
+    @XmlTransient
     public List<Rezervacija> getRezervacijaList() {
         return rezervacijaList;
     }

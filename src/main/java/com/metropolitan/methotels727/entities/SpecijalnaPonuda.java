@@ -5,20 +5,15 @@
  */
 package com.metropolitan.methotels727.entities;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -27,6 +22,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Miroslav
  */
 @Entity
+@XmlRootElement
 @Table(name = "specijalna_ponuda")
 @NamedQueries({
     @NamedQuery(name = "SpecijalnaPonuda.findAll", query = "SELECT s FROM SpecijalnaPonuda s")})
@@ -44,9 +40,6 @@ public class SpecijalnaPonuda extends AbstraktniEntitet {
     @ManyToOne(optional = false)
     @Validate("required")
     private Soba sobId;
-//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-//    @OneToOne(optional = false)
-//    private AbstraktniEntitet abstraktniEntitet;
 
     @Inject
     public SpecijalnaPonuda() {
@@ -93,14 +86,6 @@ public class SpecijalnaPonuda extends AbstraktniEntitet {
     public void setSobId(Soba sobId) {
         this.sobId = sobId;
     }
-
-//    public AbstraktniEntitet getAbstraktniEntitet() {
-//        return abstraktniEntitet;
-//    }
-//
-//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
-//        this.abstraktniEntitet = abstraktniEntitet;
-//    }
 
     @Override
     public int hashCode() {

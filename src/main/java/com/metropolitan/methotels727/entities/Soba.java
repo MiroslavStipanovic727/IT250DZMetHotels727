@@ -18,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -26,6 +28,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * @author Miroslav
  */
 @Entity
+@XmlRootElement
 @Table(name = "soba")
 @NamedQueries({
     @NamedQuery(name = "Soba.findAll", query = "SELECT s FROM Soba s")})
@@ -55,11 +58,10 @@ public class Soba extends AbstraktniEntitet {
     @Validate("required")
     @Enumerated(EnumType.STRING)
     private Opcije djakuzi;
-//    @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
-//    @OneToOne(optional = false)
-//    private AbstraktniEntitet abstraktniEntitet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sobId")
+    @XmlTransient
     private List<SpecijalnaPonuda> specijalnaPonudaList;
+    @XmlTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sobId")
     private List<Rezervacija> rezervacijaList;
 
@@ -128,14 +130,7 @@ public class Soba extends AbstraktniEntitet {
         this.djakuzi = djakuzi;
     }
 
-//    public AbstraktniEntitet getAbstraktniEntitet() {
-//        return abstraktniEntitet;
-//    }
-//
-//    public void setAbstraktniEntitet(AbstraktniEntitet abstraktniEntitet) {
-//        this.abstraktniEntitet = abstraktniEntitet;
-//    }
-
+    @XmlTransient
     public List<SpecijalnaPonuda> getSpecijalnaPonudaList() {
         return specijalnaPonudaList;
     }
@@ -144,6 +139,7 @@ public class Soba extends AbstraktniEntitet {
         this.specijalnaPonudaList = specijalnaPonudaList;
     }
 
+    @XmlTransient
     public List<Rezervacija> getRezervacijaList() {
         return rezervacijaList;
     }

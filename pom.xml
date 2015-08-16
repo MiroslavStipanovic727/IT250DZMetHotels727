@@ -51,6 +51,17 @@
             <artifactId>tapestry5-jquery</artifactId>
             <version>4.0.1-SNAPSHOT</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.tynamo</groupId>
+            <artifactId>tapestry-resteasy</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>3.0.7.Final</version>
+        </dependency>
 
         <!-- Uncomment this to add support resource minification and runtime compilation -->
         <!--
@@ -190,7 +201,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
     </repositories>
 
     <properties>
-        <tapestry-release-version>5.4-beta-27</tapestry-release-version>
+        <tapestry-release-version>5.4-beta-29</tapestry-release-version>
         <servlet-api-release-version>2.5</servlet-api-release-version>
         <testng-release-version>6.5.2</testng-release-version>
         <easymock-release-version>3.0</easymock-release-version>
