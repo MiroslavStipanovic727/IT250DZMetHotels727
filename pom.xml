@@ -89,6 +89,12 @@
             <artifactId>tapestry-kaptcha</artifactId>
             <version>5.4-beta-6</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.tynamo</groupId>
+            <artifactId>tapestry-security</artifactId>
+            <version>0.6.2</version>
+        </dependency>
 
         <!-- Uncomment this to add support resource minification and runtime compilation -->
         <!--

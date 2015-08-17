@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Import;
@@ -41,6 +42,7 @@ import org.got5.tapestry5.jquery.components.InPlaceEditor;
  */
 @ProtectedPage
 @RolesAllowed(value={"Admin"})
+@RequiresRoles("Admin")
 public class AdminPanel {
     
     @Persist

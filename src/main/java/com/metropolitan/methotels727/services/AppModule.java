@@ -10,6 +10,8 @@ import com.metropolitan.methotels727.rest.SpecijalnePonudeWebService;
 import com.metropolitan.methotels727.rest.RezervacijeWebServiceInterface;
 import com.metropolitan.methotels727.dao.*;
 import java.io.IOException;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.Realm;
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.hibernate.HibernateTransactionAdvisor;
 import org.apache.tapestry5.ioc.Configuration;
@@ -47,6 +49,7 @@ public class AppModule
         binder.bind(KorisniciWebServiceInterface.class, KorisniciWebService.class);
         binder.bind(RezervacijeWebServiceInterface.class, RezervacijeWebService.class);
         binder.bind(FacebookService.class);
+        binder.bind(AuthorizingRealm.class,UserRealm.class).withId(UserRealm.class.getSimpleName());
 
 // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
@@ -225,5 +228,10 @@ public class AppModule
         singletons.add(spWeb);
         singletons.add(koWeb);
         singletons.add(reWeb);
+    }
+    
+    public static void contributeWebSecurityManager(Configuration<Realm> configuration,
+                @InjectService("UserRealm") AuthorizingRealm userRealm) {
+        configuration.add(userRealm);
     }
 }

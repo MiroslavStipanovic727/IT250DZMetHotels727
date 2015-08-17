@@ -15,6 +15,8 @@ import com.restfb.FacebookClient;
 import java.io.IOException;
 import net.smartam.leeloo.common.exception.OAuthProblemException;
 import net.smartam.leeloo.common.exception.OAuthSystemException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.annotations.ActivationRequestParameter;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
@@ -23,6 +25,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.corelib.components.BeanEditForm;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.tynamo.security.services.SecurityService;
 
 /**
  *
@@ -41,6 +44,8 @@ public class Login {
     @Component
     private BeanEditForm formalogin;
     
+    @Inject
+    private SecurityService securityService;
     @Inject
     private FacebookService facebookService;
     @SessionState
@@ -83,6 +88,14 @@ public class Login {
             ulogovaniKorisnik = k;
             ulogovaniEmail = k.getEmail();
             System.out.println("Uspešno logovanje na sistem korisnika "+ulogovaniEmail);
+            Subject trenutniKorisnik = securityService.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(k.getEmail(),
+            korisnik.getSifra());
+            try {
+                trenutniKorisnik.login(token);
+            } catch (Exception e) {
+                formalogin.recordError("Uneli ste pogrešne parametre");
+            }
             if(ulogovaniKorisnik.getUloga() != Uloga.Admin)
                 return Index.class;
             else {
@@ -103,10 +116,6 @@ public class Login {
     @CommitAfter
     public boolean isLoggedInFb() {
         if (facebookServiceInformation.getAccessToken() != null) {
-            System.out.println("userfb.getEmail() == null? "+ (userfb.getEmail()==null));
-            System.out.println("userfb : "+ userfb);
-            System.out.println("userfb.toString() : "+ userfb.toString());
-            System.out.println("userfb.getFbId() : "+ userfb.getId());
             Korisnik fbuser;
             if(userfb.getEmail()!=null&&userfb.getFirstName()!=null&&
                     userfb.getLastName()!=null){
@@ -122,13 +131,11 @@ public class Login {
             System.out.println("proverava");
             exist = korisnikDAO.proveraDaLiPostojiFb(userfb.getId());
             if (exist == null) {
-                System.out.println("exist == null, email = null? "+(fbuser.getEmail()==null));
                 korisnikDAO.registrujKorisnika(fbuser);
                 ulogovaniKorisnik = fbuser;
                 ulogovaniEmail = fbuser.getEmail();
                 System.out.println("registruje");
             } else {
-                System.out.println("exist != null");
                 ulogovaniKorisnik = exist;
                 ulogovaniEmail = exist.getEmail();
                 System.out.println("postoji");
@@ -147,7 +154,6 @@ public class Login {
         DefaultFacebookClient(information.getAccessToken());
         if (information.isLoggedIn()) {
             userfb = facebookClient.fetchObject("me", com.restfb.types.User.class);
-//            userfb = facebookClient.fetchObject("me?fields=id,name,email,first_name", com.restfb.types.User.class);
         }
     }
 }
