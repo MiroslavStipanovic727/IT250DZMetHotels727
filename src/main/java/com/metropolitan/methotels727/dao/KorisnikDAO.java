@@ -24,6 +24,7 @@ public interface KorisnikDAO {
     public Korisnik proveriKorisnika(String email, String sifra);
     public Korisnik registrujKorisnika(Korisnik korisnik);
     public boolean proveraDaLiPostojiEmail(String email);
+    public Korisnik proveraDaLiPostojiFb(String fb);
     public int getBrojSvihKorisnika();
     
 }

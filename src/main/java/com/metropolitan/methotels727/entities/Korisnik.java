@@ -54,6 +54,8 @@ public class Korisnik extends AbstraktniEntitet{
     @Column(name = "PREZIME")
     @Validate("required")
     private String prezime;
+    @Column(name = "FACEBOOK_ID")
+    private String facebookId;
     @XmlTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "korId")
     private List<Rezervacija> rezervacijaList;
@@ -65,6 +67,14 @@ public class Korisnik extends AbstraktniEntitet{
     public Korisnik(Integer id) {
         this.id = id;
     }
+    
+    public Korisnik(String email, String sifra, Uloga uloga, String ime, String prezime) {
+        this.email = email;
+        this.sifra = sifra;
+        this.uloga = uloga;
+        this.ime = ime;
+        this.prezime = prezime;
+    }
 
     public Korisnik(Integer id, String email, String sifra, Uloga uloga, String ime, String prezime) {
         this.id = id;
@@ -73,6 +83,25 @@ public class Korisnik extends AbstraktniEntitet{
         this.uloga = uloga;
         this.ime = ime;
         this.prezime = prezime;
+    }
+    
+    public Korisnik(String email, String sifra, Uloga uloga, String ime, String prezime, String facebookId) {
+        this.email = email;
+        this.sifra = sifra;
+        this.uloga = uloga;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.facebookId = facebookId;
+    }
+    
+    public Korisnik(Integer id, String email, String sifra, Uloga uloga, String ime, String prezime, String facebookId) {
+        this.id = id;
+        this.email = email;
+        this.sifra = sifra;
+        this.uloga = uloga;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.facebookId = facebookId;
     }
 
     public Integer getId() {
@@ -121,6 +150,14 @@ public class Korisnik extends AbstraktniEntitet{
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
     @XmlTransient

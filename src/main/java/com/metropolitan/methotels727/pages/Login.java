@@ -7,10 +7,21 @@ package com.metropolitan.methotels727.pages;
 
 import com.metropolitan.methotels727.entities.Korisnik;
 import com.metropolitan.methotels727.dao.KorisnikDAO;
+import com.metropolitan.methotels727.data.Uloga;
+import com.metropolitan.methotels727.services.FacebookService;
+import com.metropolitan.methotels727.services.FacebookServiceInformation;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import java.io.IOException;
+import net.smartam.leeloo.common.exception.OAuthProblemException;
+import net.smartam.leeloo.common.exception.OAuthSystemException;
+import org.apache.tapestry5.annotations.ActivationRequestParameter;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.corelib.components.BeanEditForm;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
@@ -29,6 +40,20 @@ public class Login {
     private KorisnikDAO korisnikDAO;
     @Component
     private BeanEditForm formalogin;
+    
+    @Inject
+    private FacebookService facebookService;
+    @SessionState
+    @Property
+    private FacebookServiceInformation facebookServiceInformation;
+    @SessionState
+    @Property
+    private FacebookServiceInformation information;
+    @Property
+    private com.restfb.types.User userfb;
+    @Property
+    @ActivationRequestParameter
+    private String code;
     
     Object onActivate() {
         if (ulogovaniKorisnik.getEmail() != null) {
@@ -58,13 +83,71 @@ public class Login {
             ulogovaniKorisnik = k;
             ulogovaniEmail = k.getEmail();
             System.out.println("Uspešno logovanje na sistem korisnika "+ulogovaniEmail);
-            return Index.class;
-            
+            if(ulogovaniKorisnik.getUloga() != Uloga.Admin)
+                return Index.class;
+            else {
+                return AdminPanel.class;
+            }
         }
         else {
             formalogin.recordError("Uneti korisnik ne postoji ili je pogrešna šifra");
             System.out.println("Neuspešno logovanje");
             return null;
+        }
+    }
+    
+    public String getFacebookAuthentificationLink() throws OAuthSystemException {
+        return facebookService.getFacebookAuthentificationLink();
+    }
+    
+    @CommitAfter
+    public boolean isLoggedInFb() {
+        if (facebookServiceInformation.getAccessToken() != null) {
+            System.out.println("userfb.getEmail() == null? "+ (userfb.getEmail()==null));
+            System.out.println("userfb : "+ userfb);
+            System.out.println("userfb.toString() : "+ userfb.toString());
+            System.out.println("userfb.getFbId() : "+ userfb.getId());
+            Korisnik fbuser;
+            if(userfb.getEmail()!=null&&userfb.getFirstName()!=null&&
+                    userfb.getLastName()!=null){
+                fbuser = new Korisnik(userfb.getEmail(), " ", Uloga.Korisnik,
+                userfb.getFirstName(), userfb.getLastName(), userfb.getId());
+            } else {
+                fbuser = new Korisnik((userfb.getId()+"@facebook.com"), " ", Uloga.Korisnik,
+                (userfb.getName().substring(0, userfb.getName().indexOf(' '))), 
+                        (userfb.getName().substring(userfb.getName().indexOf(' '))), 
+                        userfb.getId());
+            }
+            Korisnik exist;
+            System.out.println("proverava");
+            exist = korisnikDAO.proveraDaLiPostojiFb(userfb.getId());
+            if (exist == null) {
+                System.out.println("exist == null, email = null? "+(fbuser.getEmail()==null));
+                korisnikDAO.registrujKorisnika(fbuser);
+                ulogovaniKorisnik = fbuser;
+                ulogovaniEmail = fbuser.getEmail();
+                System.out.println("registruje");
+            } else {
+                System.out.println("exist != null");
+                ulogovaniKorisnik = exist;
+                ulogovaniEmail = exist.getEmail();
+                System.out.println("postoji");
+            }
+        }
+    return facebookServiceInformation.getAccessToken() != null;
+    }
+    
+    @SetupRender
+    public void setup() throws IOException, OAuthSystemException,OAuthProblemException {
+        if (code != null) {
+            facebookService.getUserAccessToken(code,information.getAccessToken());
+        }
+        code = null;
+        FacebookClient facebookClient = new
+        DefaultFacebookClient(information.getAccessToken());
+        if (information.isLoggedIn()) {
+            userfb = facebookClient.fetchObject("me", com.restfb.types.User.class);
+//            userfb = facebookClient.fetchObject("me?fields=id,name,email,first_name", com.restfb.types.User.class);
         }
     }
 }

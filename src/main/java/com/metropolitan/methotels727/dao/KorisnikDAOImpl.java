@@ -86,9 +86,14 @@ public class KorisnikDAOImpl implements KorisnikDAO {
 
     @Override
     public boolean proveraDaLiPostojiEmail(String email) {
-        Long redovi = (Long)session.createCriteria(Korisnik.class).add(Restrictions.eq("email",
-            email)).setProjection(Projections.rowCount()).uniqueResult();
-        return (redovi==0) ? false : true;
+        return (Long)session.createCriteria(Korisnik.class).add(Restrictions.eq("email",
+            email)).setProjection(Projections.rowCount()).uniqueResult() != 0;
+    }
+    
+    @Override
+    public Korisnik proveraDaLiPostojiFb(String fb) {
+        return (Korisnik) session.createCriteria(Korisnik.class)
+                .add(Restrictions.eq("facebookId", fb)).uniqueResult();
     }
     
     @Override 

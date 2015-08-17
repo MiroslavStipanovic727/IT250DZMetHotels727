@@ -46,6 +46,7 @@ public class AppModule
         binder.bind(SpecijalnePonudeWebServiceInterface.class, SpecijalnePonudeWebService.class);
         binder.bind(KorisniciWebServiceInterface.class, KorisniciWebService.class);
         binder.bind(RezervacijeWebServiceInterface.class, RezervacijeWebService.class);
+        binder.bind(FacebookService.class);
 
 // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 

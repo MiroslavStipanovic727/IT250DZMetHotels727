@@ -2,8 +2,16 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
             
-    <t:beaneditform t:id="formaregistracija" object="korisnik" exclude="id,uloga"
-    submitlabel="message:submit-label">
+    <t:beaneditform t:id="formaregistracija" object="korisnik" exclude="id,uloga,facebookId"
+    add="captchaImage,cap" submitlabel="message:submit-label">
+        <p:captchaImage>
+            <label for="captchaImage">Slika koda</label>
+            <t:KaptchaImage t:id="kaptchaImage" t:validate="none"/>
+        </p:captchaImage>
+        <p:cap>
+            <t:KaptchaField t:image="kaptchaImage" id="cap" visible="true"
+            label="characters"/>
+        </p:cap>
         <t:errors/>
     </t:beaneditform>
         
